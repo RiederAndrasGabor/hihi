@@ -1,0 +1,5 @@
+base:
+  '*':
+    - amqp
+    - agentdriver
+    - common
