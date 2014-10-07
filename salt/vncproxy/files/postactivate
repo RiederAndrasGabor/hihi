@@ -1,0 +1,1 @@
+export PROXY_SECRET={{ pillar['proxy_secret'] }}
