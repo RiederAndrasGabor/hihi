@@ -1,3 +1,8 @@
+include:
+  - agentdriver.gitrepo
+  - agentdriver.virtualenv
+  - agentdriver.configuration
+
 agentdriver:
   pkg.installed:
     - pkgs:
@@ -8,10 +13,8 @@ agentdriver:
       - incron
       - libmemcached-dev
       - zlib1g-dev
+    - require_in:
+      - sls: gitrepo
+      - sls: virtualenv
   service:
     - running
-
-include:
-  - agentdriver.gitrepo
-  - agentdriver.virtualenv
-  - agentdriver.configuration
