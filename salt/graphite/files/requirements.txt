@@ -1,0 +1,12 @@
+Django==1.5
+Twisted<12.0
+python-memcached
+txAMQP
+simplejson
+django-tagging
+gunicorn
+pytz
+pyparsing
+whisper
+carbon
+graphite-web
