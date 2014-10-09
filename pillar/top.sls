@@ -8,4 +8,3 @@ base:
     - monitor-client
     - vmdriver
     - common
-    - manager
