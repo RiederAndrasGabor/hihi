@@ -23,7 +23,7 @@ export GRAPHITE_AMQP_USER='{{ pillar['graphite']['user'] }}'
 export GRAPHITE_AMQP_PASSWORD='{{ pillar['graphite']['password'] }}'
 export GRAPHITE_AMQP_QUEUE='{{ pillar['graphite']['queue'] }}'
 export GRAPHITE_AMQP_VHOST='{{ pillar['graphite']['vhost'] }}'
-export SECRET_KEY='{{ pillar['graphite']['secret_key'] }}'
+export SECRET_KEY='{{ pillar['secret_key'] }}'
 
 export PROXY_SECRET='{{ pillar['proxy_secret'] }}'
 
