@@ -4,7 +4,7 @@ include:
 virtualenv_manager:
   virtualenv.managed:
     - name: /home/{{ pillar['user'] }}/.virtualenvs/circle
-    - requirements: /home/{{ pillar['user'] }}/circle/requirements/test.txt
+    - requirements: /home/{{ pillar['user'] }}/circle/requirements/{{ pillar['deployment_type'] }}.txt
     - runas: {{ pillar['user'] }}
     - cwd: /home/{{ pillar['user'] }}/circle/
     - no_chown: true
