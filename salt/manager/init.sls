@@ -41,7 +41,6 @@ manager:
       - file: /etc/init/moncelery.conf
       - file: /etc/init/slowcelery.conf
       - sls: manager.gitrepo
-      - sls: manager.virtualenv
 
 portal:
   service:
