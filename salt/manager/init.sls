@@ -34,6 +34,14 @@ manager:
 
   service:
     - running
+    - watch:
+      - file: postactivate
+      - file: /etc/init/manager.conf
+      - file: /etc/init/mancelery.conf
+      - file: /etc/init/moncelery.conf
+      - file: /etc/init/slowcelery.conf
+      - sls: manager.gitrepo
+      - sls: manager.virtualenv
 
 portal:
   service:
