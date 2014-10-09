@@ -1,6 +1,7 @@
 user: cloud
 cache: pylibmc://127.0.0.1:11211/
 proxy_secret: xooquageire7uX1
+secret_key: Ga4aex3Eesohngo
 timezone: Europe/Budapest
 
 deployment_type: local
