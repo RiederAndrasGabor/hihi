@@ -2,6 +2,7 @@ include:
   - storagedriver.gitrepo
   - storagedriver.virtualenv
   - storagedriver.configuration
+  - storagedriver.nfs-server 
 
 storagedriver:
   pkg.installed:
