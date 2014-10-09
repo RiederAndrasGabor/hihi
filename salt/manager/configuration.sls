@@ -6,12 +6,21 @@ postactivate:
       - user: {{ pillar['user'] }}
       - mode: 700
 
-/etc/init/portal.conf:
+portal.conf:
   file.managed:
+{% if pillar['deployment_type'] == 'production' %}
+    - name: /etc/init/portal-uwsgi.conf
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.conf
+{% else %}
+    - name: /etc/init/portal.conf
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal.conf
+{% endif %}
   
 /etc/init/manager.conf:
   file.managed:
