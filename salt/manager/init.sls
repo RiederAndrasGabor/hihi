@@ -6,6 +6,7 @@ include:
   - manager.virtualenv
   - manager.configuration
   - manager.nginx
+  - manager.pipeline
 
 manager:
   pkg.installed:
