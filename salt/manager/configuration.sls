@@ -1,4 +1,4 @@
-postactivate:
+manager_postactivate:
   file.managed:
       - name: /home/{{ pillar['user'] }}/.virtualenvs/circle/bin/postactivate
       - source: salt://manager/files/postactivate
