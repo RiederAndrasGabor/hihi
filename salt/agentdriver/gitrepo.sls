@@ -1,5 +1,5 @@
-git:
-  pkg.installed
+include:
+  - common
 
 gitrepo_agentdriver:
   git.latest:
