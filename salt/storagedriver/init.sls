@@ -12,6 +12,7 @@ storagedriver:
       - python-dev
       - libmemcached-dev
       - ntp
+      - zlib1g-dev
       - qemu-utils
     - require_in:
       - gitrepo: gitrepo_storagedriver
