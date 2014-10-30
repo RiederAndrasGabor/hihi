@@ -12,10 +12,11 @@
     - user: {{ pillar['user'] }}
 
 /etc/init/agentdriver.conf:
-  file.copy:
+  file.managed:
     - user: root
     - group: root
-    - source: /home/{{ pillar['user'] }}/agentdriver/miscellaneous/agentdriver.conf
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/agentdriver/miscellaneous/agentdriver.conf
 
 /var/lib/libvirt/serial:
   file.directory:

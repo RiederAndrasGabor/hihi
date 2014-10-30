@@ -22,3 +22,7 @@ graphite:
 
   service:
     - running
+
+graphite-carbon:
+  service:
+    - running

@@ -6,16 +6,18 @@
     - mode: 700
 
 /etc/init/storagecelery.conf:
-  file.copy:
+  file.managed:
     - user: root
     - group: root
-    - source: /home/{{ pillar['user'] }}/storagedriver/miscellaneous/storagecelery.conf
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/storagedriver/miscellaneous/storagecelery.conf
 
 /etc/init/storage.conf:
-  file.copy:
+  file.managed:
     - user: root
     - group: root
-    - source: /home/{{ pillar['user'] }}/storagedriver/miscellaneous/storage.conf
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/storagedriver/miscellaneous/storage.conf
 
 /datastore:
   file.directory:

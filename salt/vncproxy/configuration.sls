@@ -6,7 +6,8 @@
     - mode: 700
 
 /etc/init/vncproxy.conf:
-  file.copy:
+  file.managed:
     - user: root
     - group: root
-    - source: /home/{{ pillar['user'] }}/vncproxy/miscellaneous/vncproxy.conf
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/vncproxy/miscellaneous/vncproxy.conf

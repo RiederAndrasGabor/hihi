@@ -22,6 +22,13 @@ requirements:
     - template: jinja
     - source: salt://graphite/files/graphite.conf
 
+/etc/init/graphite-carbon.conf:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: salt://graphite/files/graphite-carbon.conf
+
 /opt/graphite:
   file.directory:
     - makedirs: True
