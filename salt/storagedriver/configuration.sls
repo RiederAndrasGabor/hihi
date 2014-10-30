@@ -3,6 +3,7 @@
     - source: salt://storagedriver/files/postactivate
     - template: jinja
     - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
     - mode: 700
 
 /etc/init/storagecelery.conf:

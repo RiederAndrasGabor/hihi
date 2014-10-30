@@ -4,6 +4,7 @@ postactivate:
       - source: salt://graphite/files/postactivate
       - template: jinja
       - user: {{ pillar['graphite']['user'] }}
+      - group: {{ pillar['graphite']['user'] }}
       - mode: 700
 
 requirements:  
@@ -33,6 +34,7 @@ requirements:
   file.directory:
     - makedirs: True
     - user: {{ pillar['graphite']['user'] }}
+    - group: {{ pillar['graphite']['user'] }}
     - require:
       - user: {{ pillar['graphite']['user'] }}
 

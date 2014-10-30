@@ -3,6 +3,7 @@
     - source: salt://agentdriver/files/postactivate
     - template: jinja
     - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
     - mode: 700
 
 /etc/incron.d/agentdriver:
