@@ -15,6 +15,8 @@ graphite:
       - user: {{ pillar['graphite']['user'] }}
     - require_in:
       - virtualenv: virtualenv_graphite
+      - service: graphite
+      - service: graphite-carbon
   user:
     - present
     - name: {{ pillar['graphite']['user'] }}

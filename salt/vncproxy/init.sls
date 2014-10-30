@@ -1,7 +1,7 @@
 include:
-  - vncproxy.configuration
   - vncproxy.gitrepo
   - vncproxy.virtualenv
+  - vncproxy.configuration
 
 vncproxy:
   pkg.installed:
@@ -14,7 +14,12 @@ vncproxy:
       - libffi-dev
       - libssl-dev
     - require_in:
-      - gitrepo: gitrepo_vncproxy
-      - gitrepo: virtualenv_vncproxy
+      - git: gitrepo_vncproxy
+      - virtualenv: virtualenv_vncproxy
   service:
     - running
+    - watch:
+      - pkg: vncproxy
+      - sls: vncproxy.gitrepo
+      - sls: vncproxy.virtualenv
+      - sls: vncproxy.configuration

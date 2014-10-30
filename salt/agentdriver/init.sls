@@ -14,7 +14,12 @@ agentdriver:
       - libmemcached-dev
       - zlib1g-dev
     - require_in:
-      - gitrepo: gitrepo_agentdriver
+      - git: gitrepo_agentdriver
       - virtualenv: virtualenv_agentdriver
   service:
     - running
+    - watch:
+      - pkg: agentdriver
+      - sls: agentdriver.gitrepo
+      - sls: agentdriver.virtualenv
+      - sls: agentdriver.configuration

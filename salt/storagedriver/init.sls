@@ -15,9 +15,14 @@ storagedriver:
       - zlib1g-dev
       - qemu-utils
     - require_in:
-      - gitrepo: gitrepo_storagedriver
+      - git: gitrepo_storagedriver
       - virtualenv: virtualenv_storagedriver
 
 storage:
   service:
     - running
+    - watch:
+      - pkg: storagedriver
+      - sls: storagedriver.gitrepo
+      - sls: storagedriver.virtualenv
+      - sls: storagedriver.configuration
