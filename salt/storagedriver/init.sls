@@ -14,8 +14,8 @@ storagedriver:
       - ntp
       - qemu-utils
     - require_in:
-      - sls: gitrepo
-      - sls: virtualenv
+      - gitrepo: gitrepo_storagedriver
+      - virtualenv: virtualenv_storagedriver
 
 storage:
   service:

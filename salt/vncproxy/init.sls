@@ -14,7 +14,7 @@ vncproxy:
       - libffi-dev
       - libssl-dev
     - require_in:
-      - sls: gitrepo
-      - sls: virtualenv
+      - gitrepo: gitrepo_vncproxy
+      - gitrepo: virtualenv_vncproxy
   service:
     - running

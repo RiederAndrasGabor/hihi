@@ -1,4 +1,4 @@
-virtualenv:
+virtualenv_graphite:
   virtualenv.managed:
     - name: /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite
     - requirements: /home/{{ pillar['graphite']['user'] }}/requirements.txt
@@ -12,12 +12,12 @@ global-site-packages:
   file.absent:
     - name: /home/{{pillar['graphite']['user'] }}/.virtualenvs/graphite/lib/python2.7/no-global-site-packages.txt
     - require:
-      - virtualenv: virtualenv
+      - virtualenv: virtualenv_graphite
 
 salt://graphite/files/syncdb.sh:
   cmd.script:
     - template: jinja
     - user: {{ pillar['graphite']['user'] }}
     - require:
-      - virtualenv: virtualenv
+      - virtualenv: virtualenv_graphite
       - user: {{ pillar['graphite']['user'] }}

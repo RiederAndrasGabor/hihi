@@ -14,7 +14,7 @@ graphite:
     - require:
       - user: {{ pillar['graphite']['user'] }}
     - require_in:
-      - sls: virtualenv
+      - virtualenv: virtualenv_graphite
   user:
     - present
     - name: {{ pillar['graphite']['user'] }}

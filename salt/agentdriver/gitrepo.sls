@@ -1,7 +1,7 @@
 git:
   pkg.installed
 
-gitrepo:
+gitrepo_agentdriver:
   git.latest:
     - name: {{ pillar['agentdriver']['repo_name']  }} 
     - rev: {{ pillar['agentdriver']['repo_revision']  }}

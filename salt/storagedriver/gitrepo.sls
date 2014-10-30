@@ -1,7 +1,7 @@
 git:
   pkg.installed
 
-gitrepo:
+gitrepo_storagedriver:
   git.latest:
     - name: {{ pillar['storagedriver']['repo_name']  }} 
     - rev: {{ pillar['storagedriver']['repo_revision']  }}
