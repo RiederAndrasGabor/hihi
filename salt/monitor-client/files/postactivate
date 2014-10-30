@@ -1,0 +1,6 @@
+export GRAPHITE_HOST='{{ pillar['graphite']['host'] }}'
+export GRAPHITE_PORT='{{ pillar['graphite']['port'] }}'
+export GRAPHITE_AMQP_USER='{{ pillar['graphite']['user'] }}'
+export GRAPHITE_AMQP_PASSWORD='{{ pillar['graphite']['password'] }}'
+export GRAPHITE_AMQP_QUEUE='{{ pillar['graphite']['queue'] }}'
+export GRAPHITE_AMQP_VHOST='{{ pillar['graphite']['vhost'] }}'

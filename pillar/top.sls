@@ -4,4 +4,5 @@ base:
     - agentdriver
     - storagedriver
     - vncproxy
+    - monitor-client
     - common
