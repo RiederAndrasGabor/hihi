@@ -7,3 +7,4 @@ base:
     - monitor-client
     - vmdriver
     - common
+    - installer

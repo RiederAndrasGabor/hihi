@@ -1,0 +1,19 @@
+amqp:
+  user: cloud
+  password: password
+  host: 10.0.0.26
+  port: 5672
+  vhost: circle
+
+graphite:
+  user: monitor
+  password: monitor
+  host: 10.0.0.26
+  port: 5672
+  vhost: monitor
+  queue: monitor
+
+cache: pylibmc://10.0.0.26:11211/
+
+nfs:
+  server: 10.0.0.26
