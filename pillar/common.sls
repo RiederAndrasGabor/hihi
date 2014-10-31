@@ -5,3 +5,6 @@ timezone: Europe/Budapest
 
 graphite:
   secret_key: ahf2aim7ahLeo8n
+
+nfs:
+  server: 10.0.0.26
