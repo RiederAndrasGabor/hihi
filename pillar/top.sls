@@ -5,4 +5,5 @@ base:
     - storagedriver
     - vncproxy
     - monitor-client
+    - vmdriver
     - common

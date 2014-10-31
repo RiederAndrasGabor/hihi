@@ -22,3 +22,6 @@
 /var/lib/libvirt/serial:
   file.directory:
     - makedirs: True
+    - user: libvirt-qemu
+    - group: kvm
+    - mode: 755

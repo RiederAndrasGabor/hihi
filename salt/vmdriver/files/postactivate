@@ -1,0 +1,6 @@
+export AMQP_URI=amqp://{{ pillar['amqp']['user'] }}:{{ pillar['amqp']['password'] }}@{{ pillar['amqp']['host'] }}:{{ pillar['amqp']['port'] }}/{{ pillar['amqp']['vhost'] }}
+export CACHE_URI={{ pillar['cache'] }}
+export LIBVIRT_URI=qemu:///system
+export HYPERVISOR_TYPE=kvm
+export NATIVE_OVS=True
+
