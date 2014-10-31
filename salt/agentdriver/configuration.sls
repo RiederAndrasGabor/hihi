@@ -10,7 +10,8 @@
   file.managed:
     - source: salt://agentdriver/files/agentdriver.incron
     - template: jinja
-    - user: {{ pillar['user'] }}
+    - user: root
+    - group: root
 
 /etc/init/agentdriver.conf:
   file.managed:
@@ -18,10 +19,3 @@
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/agentdriver/miscellaneous/agentdriver.conf
-
-/var/lib/libvirt/serial:
-  file.directory:
-    - makedirs: True
-    - user: libvirt-qemu
-    - group: kvm
-    - mode: 755

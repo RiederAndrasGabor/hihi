@@ -28,3 +28,18 @@ libvirt-bin:
     - source: salt://vmdriver/files/usr.lib.libvirt.virt-aa-helper
     - template: jinja
     - mode: 644
+
+apparmor:
+  service:
+    - reload: true
+    - running
+    - watch:
+      - file: /etc/apparmor.d/libvirt/TEMPLATE
+      - file: /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
+
+/var/lib/libvirt/serial:
+  file.directory:
+    - makedirs: True
+    - user: libvirt-qemu
+    - group: kvm
+    - mode: 755
