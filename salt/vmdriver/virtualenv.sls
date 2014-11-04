@@ -5,13 +5,13 @@ virtualenv_vmdriver:
     - runas: {{ pillar['user'] }}
     - no_chown: true
 
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages//libvirtmod_qemu.so:
+/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirtmod_qemu.so:
   file.symlink:
     - target: /usr/lib/python2.7/dist-packages/libvirtmod_qemu.so
     - require:
       - virtualenv: virtualenv_vmdriver
 
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages//libvirtmod.so:
+/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirtmod.so:
   file.symlink:
     - target: /usr/lib/python2.7/dist-packages/libvirtmod.so
     - require:
