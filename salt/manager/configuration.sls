@@ -49,3 +49,13 @@ portal.conf:
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/slowcelery.conf
+
+salt://manager/files/init.sh:
+  cmd.script:
+    - template: jinja
+    - user: {{ pillar['user'] }}
+    - stateful: true
+    - require:
+      - virtualenv: virtualenv_manager
+      - file: /home/{{ pillar['user'] }}/.virtualenvs/circle/bin/postactivate
+      - user: {{ pillar['user'] }}

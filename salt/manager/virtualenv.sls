@@ -15,6 +15,7 @@ salt://manager/files/syncdb.sh:
   cmd.script:
     - template: jinja
     - user: {{ pillar['user'] }}
+    - stateful: true
     - require:
       - virtualenv: virtualenv_manager
       - file: /home/{{ pillar['user'] }}/.virtualenvs/circle/bin/postactivate
@@ -24,6 +25,7 @@ salt://manager/files/compile.sh:
   cmd.script:
     - template: jinja
     - user: {{ pillar['user'] }}
+    - stateful: true
     - require:
       - virtualenv: virtualenv_manager
       - file: /home/{{ pillar['user'] }}/.virtualenvs/circle/bin/postactivate
