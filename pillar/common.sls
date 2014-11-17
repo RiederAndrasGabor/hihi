@@ -6,6 +6,9 @@ timezone: Europe/Budapest
 
 deployment_type: local
 
+admin_user: admin
+admin_pass: 4j23oihreehfd
+
 database:
   name: circle
   user: circle
@@ -15,6 +18,7 @@ graphite:
   secret_key: ahf2aim7ahLeo8n
 
 nfs:
+  enabled: false
   server: localhost
   network: 192.168.1.0/24
   directory: /datastore

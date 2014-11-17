@@ -7,4 +7,7 @@ base:
     - vncproxy
     - monitor-client
     - vmdriver
+    - firewall
+    - manager
     - common
+    - installer
