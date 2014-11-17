@@ -1,3 +1,4 @@
+{% if pillar['nfs']['enabled'] %}
 nfs-server:
   service:
    - name: nfs-kernel-server
@@ -13,3 +14,6 @@ nfs-server:
     - template: jinja
     - sources:
       - salt://storagedriver/files/exports.tmpl
+    - require:
+      - pkg: nfs-server
+{% endif %}

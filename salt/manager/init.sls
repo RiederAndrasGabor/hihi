@@ -1,4 +1,5 @@
 include:
+  - manager.pipeline
   - manager.gitrepo
   - manager.agentgit
   - manager.postgres
@@ -6,7 +7,6 @@ include:
   - manager.virtualenv
   - manager.configuration
   - manager.nginx
-  - manager.pipeline
 
 manager:
   pkg.installed:
@@ -36,7 +36,7 @@ manager:
   service:
     - running
     - watch:
-      - file: postactivate
+      - file: manager_postactivate
       - file: /etc/init/manager.conf
       - file: /etc/init/mancelery.conf
       - file: /etc/init/moncelery.conf
