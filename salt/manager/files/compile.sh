@@ -5,6 +5,9 @@ source /home/{{ pillar['user'] }}/.virtualenvs/circle/bin/postactivate
 MANAGE="python /home/{{ pillar['user'] }}/circle/circle/manage.py"
 bower install
 
+$MANAGE compileless
+$MANAGE compilejsi18n -o dashboard/static/jsi18n
+
 COLLECTED=$($MANAGE collectstatic --noinput |
             awk '/static files copied to/ {print $1}')
 

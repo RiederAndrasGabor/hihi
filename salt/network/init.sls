@@ -10,9 +10,11 @@ linka:
     - proto: manual
     - pre_up_cmds:
       - ip link add linka type veth peer name linkb
-      - ovs-vsctl --if-exists del-port cloud linka
-    - post_up_cmds:
-      - ovs-vsctl --may-exist add-port cloud linka
+      - /etc/init.d/openvswitch-switch restart
+      - /usr/bin/ovs-vsctl --if-exists del-port cloud linka
+      - /usr/bin/ovs-vsctl --may-exist add-port cloud linka
+      - ip link set linka up
+      - ip link set linkb up
     - post_down_cmds:
       - ip link del linka
 
@@ -26,13 +28,15 @@ man0:
   network.managed:
     - enabled: True
     - type: eth
-    - proto: none
+    - proto: static
     - ipaddr: {{ pillar['fwdriver']['portal_ip'] }}
     - netmask: {{ pillar['fwdriver']['portal_netmask'] }}
     - gateway: {{ pillar['fwdriver']['management_net'].split('/')[0] }}
     - dns:
       - 8.8.8.8
       - 8.8.4.4
+    - pre_up_cmds:
+      - /etc/init.d/openvswitch-switch restart
     - require:
       - cmd: ovs-if
 
