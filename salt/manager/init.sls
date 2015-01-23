@@ -25,6 +25,7 @@ manager:
       - libxml2-dev
       - libxslt1-dev
       - libmemcached-dev
+      - swig
     - require_in:
       - service: postgres_service
   user:
