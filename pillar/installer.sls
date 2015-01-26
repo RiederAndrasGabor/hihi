@@ -1,3 +1,19 @@
+#user: cloud
+
+#proxy_secret: xooquageire7uX1
+#secret_key: Ga4aex3Eesohngo
+#timezone: Europe/Budapest
+
+#deployment_type: local
+
+#admin_user: admin
+#admin_pass: 4j23oihreehfd
+
+#database:
+#  name: circle
+#  user: circle
+#  password: hoGei6paiN0ieda
+
 #amqp:
 #  user: cloud
 #  password: password
@@ -12,6 +28,7 @@
 #  port: 5672
 #  vhost: monitor
 #  queue: monitor
+#  secret_key: ahf2aim7ahLeo8n
 
 #cache: pylibmc://127.0.0.1:11211/
 
@@ -21,8 +38,13 @@
 #  network: 192.168.1.0/24
 #  directory: /datastore
 
-#fwdriver:
-#  queue_name: cloud
-
 #storagedriver:
 #  queue_name: cloud
+
+#fwdriver:
+#  queue_name: cloud-1115
+#  gateway: 10.0.255.254
+#  external_net: 10.0.0.115/16
+#  external_if: eth0
+#  trunk_if: linkb
+#  management_if: ethy
