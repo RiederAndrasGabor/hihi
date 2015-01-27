@@ -16,6 +16,13 @@ agentdriver:
     - require_in:
       - git: gitrepo_agentdriver
       - virtualenv: virtualenv_agentdriver
+  user:
+    - present
+    - name: {{ pillar['user'] }}
+    - gid_from_name: True
+    - require_in:
+      - git: gitrepo_agentdriver
+      - virtualenv: virtualenv_agentdriver
   service:
     - running
     - watch:
