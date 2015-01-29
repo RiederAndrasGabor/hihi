@@ -121,25 +121,19 @@ To create new Virtual Machine, we use Templates - images based on previously sav
 Set name, CPU and RAM settings, architecture. Check in the boot menu box, select network and lease, write down, which operating system will you use. Finally, create a template.
 > The rows marked with astersk need to be filled.
 
-![configure standalone node](images/configure_node.jpg)
+![configure standalone node](docs/images/configure_node.jpg)
 
 #### Add disk
 
 Currently we don't have any disks attached to our VM. To add, click on the Resources menu, 'create disk' icon, set the name and size.
-![disk setup](images/disk.jpg)
+![disk setup](docs/images/disk.jpg)
 
 #### Attach ISO
 
 To install an OS, we can use ISO images, to boot from. Click on 'download disk' and type the ISO's URL.
-![download iso](images/iso.jpg)
+![download iso](docs/images/iso.jpg)
 
 ### Start Virtual Machine
 Finally, we can run the machine. Click on 'deploy' and start it. You can choose, on which node do you want to run.
 
-![ubuntu 14.04](images/ubuntu.png)
-
-
-
-
-
-
+![ubuntu 14.04](docs/images/ubuntu.png)
