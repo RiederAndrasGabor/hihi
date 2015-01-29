@@ -11,6 +11,7 @@ monitor-client:
       - python-pip
       - ntp
       - wget
+      - python-dev
     - require_in:
       - git: gitrepo_monitor-client
       - virtualenv: virtualenv_monitor-client

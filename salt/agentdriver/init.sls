@@ -13,6 +13,7 @@ agentdriver:
       - incron
       - libmemcached-dev
       - zlib1g-dev
+      - python-dev
     - require_in:
       - git: gitrepo_agentdriver
       - virtualenv: virtualenv_agentdriver

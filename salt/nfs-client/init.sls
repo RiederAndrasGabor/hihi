@@ -1,4 +1,3 @@
-{% if pillar['nfs']['enabled'] %}
 nfs-client:
   pkg.installed:
     - pkgs:
@@ -15,4 +14,3 @@ nfs-client:
     - pass_num: 2
     - persist: True
     - mkmnt: True
-{% endif %}
