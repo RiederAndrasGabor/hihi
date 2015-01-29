@@ -1,5 +1,6 @@
 base:
   '*':
+    - vmdriver
     - amqp
     - agentdriver
     - agent
@@ -11,3 +12,4 @@ base:
     - manager
     - common
     - installer
+    - node
