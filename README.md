@@ -69,7 +69,7 @@ Run the following installation command:
 sudo salt-call state.sls allinone
 ```
 
-###Current problems 
+### Current problems 
 
 #### Gateway issue
 ```
@@ -98,7 +98,7 @@ sudo ufw allow 80
 
 ## Quickstart - Standalone Node
 
-###Login
+### Login
 Log in into the Circle website with admin (the site is accessable on the 443 port). Name and password is in the `salt/pillar/installer.sls`.
 
 ### Create Node
@@ -133,7 +133,7 @@ Currently we don't have any disks attached to our VM. To add, click on the Resou
 To install an OS, we can use ISO images, to boot from. Click on 'download disk' and type the ISO's URL.
 ![download iso](images/iso.jpg)
 
-###Start Virtual Machine
+### Start Virtual Machine
 Finally, we can run the machine. Click on 'deploy' and start it. You can choose, on which node do you want to run.
 
 ![ubuntu 14.04](images/ubuntu.png)
