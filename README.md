@@ -1,4 +1,5 @@
-#Circle Project Salt Installer
+
+# Circle Project Salt Installer
 
 ## Install Salt
 
@@ -68,9 +69,9 @@ Run the following installation command:
 sudo salt-call state.sls allinone
 ```
 
-###Current issues
+###Current problems 
 
-####`#1` Gateway problem
+#### Gateway issue
 ```
 cd circle/circle/
 workon circle
@@ -82,7 +83,7 @@ sudo -i
 ifconfig net hw ether <MAC>
 ```
 
-####`#2` Nginx problem
+#### Nginx issue
 	Delete configuration file duplication and restart nginx
 ```
 sudo rm /etc/nginx/sites-enabled/default
@@ -103,11 +104,11 @@ Log in into the Circle website with admin (the site is accessable on the 443 por
 ### Create Node
 To run virtual machines, we need to create nodes - and add to the system. Click on the new icon in the dashboard, Nodes menu.
 
-####Configure Node
+#### Configure Node
 
 To standalone configuration, type the current machine's hostname to Host/name, MAC address to Host/MAC, IP to HOST/IP. Choose managed-vm as VLAN.
 
-####Activate Node
+#### Activate Node
 
 Click on the 'Activate' icon to use the Node.
 
