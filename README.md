@@ -69,6 +69,12 @@ Run the following installation command:
 sudo salt-call state.sls allinone
 ```
 
+After install, delete agent.conf file:
+
+```bash
+sudo rm /etc/init/agent.conf
+```
+
 ### Current problems 
 
 #### Gateway issue
@@ -80,6 +86,7 @@ workon circle
 # get eth0 MAC address
 ifconfig
 sudo -i
+ip netns exec fw bash
 ifconfig net hw ether <MAC>
 ```
 
