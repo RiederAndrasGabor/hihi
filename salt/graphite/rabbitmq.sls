@@ -2,8 +2,10 @@ rabbitmq-server_monitor:
   pkg.installed:
     - name: rabbitmq-server
   service:
-    - name: rabbitmq-server
     - running
+    - name: rabbitmq-server
+    - require:
+      - pkg: rabbitmq-server 
 
 rabbitmq_user_monitor:
   rabbitmq_user.present:

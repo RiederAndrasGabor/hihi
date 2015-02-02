@@ -1,8 +1,9 @@
 rabbitmq-server:
   pkg.installed:
     - name: rabbitmq-server
-  service:
-    - running
+  service.running:
+    - require:
+      - pkg: rabbitmq-server
 
 rabbitmq_user:
   rabbitmq_user.present:
