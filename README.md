@@ -133,11 +133,13 @@ Set name, CPU and RAM settings, architecture. Check in the boot menu box, select
 #### Add disk
 
 Currently we don't have any disks attached to our VM. To add, click on the Resources menu, 'create disk' icon, set the name and size.
+
 ![disk setup](docs/images/disk.jpg)
 
 #### Attach ISO
 
 To install an OS, we can use ISO images, to boot from. Click on 'download disk' and type the ISO's URL.
+
 ![download iso](docs/images/iso.jpg)
 
 ### Start Virtual Machine
