@@ -6,6 +6,7 @@ include:
 firewall:
   pkg.installed:
     - pkgs:
+      - zlib1g-dev
       - virtualenvwrapper
       - git
       - python-pip
