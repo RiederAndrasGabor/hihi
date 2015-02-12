@@ -19,3 +19,10 @@
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/agentdriver/miscellaneous/agentdriver.conf
+
+incron:
+  service:
+    - reload: true
+    - running
+    - watch:
+      - file: /etc/incron.d/agentdriver
