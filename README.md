@@ -36,6 +36,8 @@ Clone circle installer git repository into cloud home
 git clone git@git.ik.bme.hu:circle/salt.git
 ```
 
+## Remove node row from pillar/top.sls
+
 ## Change variables
 Modify installer.sls file
 
