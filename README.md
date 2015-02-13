@@ -1,6 +1,10 @@
 
 # Circle Project Salt Installer
 
+## Add vlan
+
+Before starting the machine - add LAB vlan.
+
 ## Install Salt
 
 ```bash
