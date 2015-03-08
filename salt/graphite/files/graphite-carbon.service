@@ -1,0 +1,14 @@
+[Unit]
+Description=Graphite Carbon
+After=network.target
+
+[Service]
+User={{ pillar['graphite']['user'] }}
+Group={{ pillar['graphite']['user'] }}
+Environment=PYTHONPATH=/opt/graphite/lib GRAPHITE_ROOT=/opt/graphite
+WorkingDirectory=/opt/graphite/bin/
+ExecStart=/bin/bash -c "source /etc/profile; workon graphite; exec twistd --nodaemon --reactor=epoll --no_save carbon-cache"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

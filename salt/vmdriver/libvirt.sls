@@ -10,12 +10,23 @@ libvirtconf:
   file.append:
     - text: libvirtd_opts="-d -l"
 
+{% if grains['os_family'] == 'RedHat' %}
+libvirtd:
+{% else %}
 libvirt-bin:
+{% endif %}
   service:
     - running
     - watch:
       - file: /etc/default/libvirt-bin
       - augeas: libvirtconf
+
+{% if grains['os_family'] == 'RedHat' %}
+/usr/bin/kvm:
+  file.symlink:
+    - target: /usr/libexec/qemu-kvm
+
+{% else %}
 
 /etc/apparmor.d/libvirt/TEMPLATE:
   file.managed:
@@ -36,10 +47,15 @@ apparmor:
     - watch:
       - file: /etc/apparmor.d/libvirt/TEMPLATE
       - file: /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
+{% endif %}
 
 /var/lib/libvirt/serial:
   file.directory:
     - makedirs: True
+    {% if grains['os_family'] == 'RedHat' %}
+    - user: qemu
+    {% else %}
     - user: libvirt-qemu
+    {% endif %}
     - group: kvm
     - mode: 755

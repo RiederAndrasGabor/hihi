@@ -1,6 +1,18 @@
 include:
   - common
 
+# m2crypto workaround
+# /usr/include/openssl/opensslconf.h:31: Error: CPP #error
+# ""This openssl-devel package does not work your architecture?"".
+# Use the -cpperraswarn option to continue swig processing.
+
+{% if grains['os_family'] == 'RedHat' %}
+m2crypto_swig_env:
+  environ.setenv:
+    - name: SWIG_FEATURES
+    - value: -D__x86_64__
+{% endif %}
+
 virtualenv_manager:
   virtualenv.managed:
     - name: /home/{{ pillar['user'] }}/.virtualenvs/circle
@@ -10,6 +22,9 @@ virtualenv_manager:
     - no_chown: true
     - require:
       - git: gitrepo
+      {% if grains['os_family'] == 'RedHat' %}
+      - environ: m2crypto_swig_env
+      {% endif %}
 
 salt://manager/files/syncdb.sh:
   cmd.script:

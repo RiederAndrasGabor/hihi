@@ -6,17 +6,23 @@ include:
 monitor-client:
   pkg.installed:
     - pkgs:
-      - virtualenvwrapper
       - git
       - python-pip
       - ntp
       - wget
+      {% if grains['os_family'] == 'RedHat' %}
+      - python-devel
+      - python-virtualenvwrapper
+      {% else %}
       - python-dev
+      - virtualenvwrapper
+      {% endif %}
     - require_in:
       - git: gitrepo_monitor-client
       - virtualenv: virtualenv_monitor-client
   service:
     - running
+    - enable: True
     - watch:
       - pkg: monitor-client
       - sls: monitor-client.gitrepo

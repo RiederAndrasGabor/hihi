@@ -1,0 +1,13 @@
+[Unit]
+Description=Graphite
+After=network.target
+
+[Service]
+User={{ pillar['graphite']['user'] }}
+Group={{ pillar['graphite']['user'] }}
+WorkingDirectory=/opt/graphite/webapp/graphite
+ExecStart=/bin/bash -c "source /etc/profile; workon graphite; exec python manage.py runserver [::]:8081"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

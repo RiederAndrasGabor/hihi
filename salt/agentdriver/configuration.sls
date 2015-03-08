@@ -13,14 +13,29 @@
     - user: root
     - group: root
 
+{% if grains['os_family'] == 'RedHat' %}
+/etc/systemd/system/agentdriver.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/agentdriver/miscellaneous/agentdriver.service
+
+{% else %}
+
 /etc/init/agentdriver.conf:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/agentdriver/miscellaneous/agentdriver.conf
+{% endif %}
 
+{% if grains['os_family'] == 'RedHat' %}
+incrond:
+{% else %}
 incron:
+{% endif %}
   service:
     - reload: true
     - running

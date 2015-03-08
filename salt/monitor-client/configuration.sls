@@ -6,9 +6,20 @@
     - group: {{ pillar['user'] }}
     - mode: 700
 
+{% if grains['os_family'] == 'RedHat' %}
+/etc/systemd/system/monitor-client.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/monitor-client/miscellaneous/monitor-client.service
+
+{% else %}
+
 /etc/init/monitor-client.conf:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/monitor-client/miscellaneous/monitor-client.conf
+{% endif %}

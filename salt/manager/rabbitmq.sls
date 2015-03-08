@@ -2,6 +2,7 @@ rabbitmq-server:
   pkg.installed:
     - name: rabbitmq-server
   service.running:
+    - enable: True
     - require:
       - pkg: rabbitmq-server
 

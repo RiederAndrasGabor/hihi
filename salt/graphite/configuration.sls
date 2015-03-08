@@ -16,6 +16,24 @@ requirements:
       - require:
         - user: {{ pillar['graphite']['user'] }}
   
+{% if grains['os_family'] == 'RedHat' %}
+
+/etc/systemd/system/graphite.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: salt://graphite/files/graphite.service
+
+/etc/systemd/system/graphite-carbon.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: salt://graphite/files/graphite-carbon.service
+
+{% else %}
+
 /etc/init/graphite.conf:
   file.managed:
     - user: root
@@ -29,6 +47,7 @@ requirements:
     - group: root
     - template: jinja
     - source: salt://graphite/files/graphite-carbon.conf
+{% endif %}
 
 /opt/graphite:
   file.directory:
