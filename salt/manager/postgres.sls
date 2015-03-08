@@ -3,7 +3,7 @@ postgresql_initdb:
   cmd.run:
     - cwd: /
     - user: root
-    - name: service postgresql initdb
+    - name: postgresql-setup initdb
     - unless: test -f /var/lib/pgsql/data/postgresql.conf
     - env:
       LC_ALL: C.UTF-8

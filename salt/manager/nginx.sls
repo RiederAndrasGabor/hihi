@@ -17,6 +17,20 @@ circlecert:
     - cwd: /etc/ssl/certs/
     - creates: /etc/ssl/certs/circle.pem
 
+{% if grains['os_family'] == 'RedHat' %}
+nginx_selinux:
+  pkg.installed:
+    - pkgs:
+      - policycoreutils
+      - policycoreutils-python
+  selinux.boolean:
+    - name: httpd_can_network_connect
+    - value: True
+    - persist: True
+    - require:
+      - pkg: nginx_selinux
+{% endif %}
+
 nginxdefault:
   file.managed:
   {% if grains['os_family'] == 'RedHat' %}

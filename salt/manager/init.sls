@@ -75,6 +75,7 @@ portal:
     - watch:
       - file: manager_postactivate
       - file: portal.conf
+      - sls: manager.gitrepo
 
 memcached:
   service:

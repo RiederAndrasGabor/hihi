@@ -38,6 +38,7 @@ incron:
 {% endif %}
   service:
     - reload: true
+    - enable: true
     - running
     - watch:
       - file: /etc/incron.d/agentdriver
