@@ -44,22 +44,77 @@ sudo vim salt/pillar/installer.sls
 ```
 
 Most used variables
-
+-------------------
+* user: user who will install the software
+* proxy_secret: proxy secret key TODO
+* secret_key: secret key TODO
+* time zone: the server's time zone, format is region/city
+* deployment_type: local or ? TODO
 * **admin_user**: user name to login in as admin on the site
 * **admin_pass**: password to login in as admin on the site
-* time zone: the server's time zone, format is region/city
-* nfs
-	* server: nfs server's hostname
-	* network: nfs server's network to access files
-	* directory: this directory will be shared
+* database:
+   * name: django database's name
+   * user: database user
+   * password: database user's password
+* amqp:
+   * user: amqp user
+   * password: ampq user's password
+   * host: amqp server IP - usually runs at localhost
+   * port: amqp server's port
+   * vhost: virtual host - specifies the namespace for entities (exchanges and queues) referred to by the protocol
+* graphite:
+   * user: graphite user
+   * password: graphite user's password
+   * host: graphite server IP - usually runs at localhost
+   * port: graphite server's port
+   * vhost: TODO
+   * queue: TODO
+   * secret_key: graphite's secret key
+* cache: cache url - usually pylibmc://127.0.0.1:11211/
+* nfs:
+   * enabled: nfs is enabled
+   * server: nfs server's hostname
+   * network: nfs server's network to access files
+   * directory: this directory will be shared
 * storagedriver:
-	* **queue_name**<sup>*</sup>: storage host name
-* fwdriver
-	* **queue_name**<sup>*</sup>: the server's hostname
-	* **external_net**<sup>*</sup>: the server's network
-	* **external_if**: the server's network interface
+   * queue_name: TODO
+* fwdriver:
+   * queue_name: the server's hostname
+   * gateway: the server's gateway
+   * EXTERNAL_Net: the server's network
+   * external_if: the server's network interface
+   * trunk_if: trunk interface TODO
+   * management_if: TODO
 
-> <sup>**`*`**</sup> These variables need to be configured. Use `hostname`, `ifconfig`, `route -n` to get network information.
+Other variables
+---------------
+* agent:
+   * repo_name: the agent repository's name
+   * repo_revision: revision
+* agentdriver:
+   * repo_name: the agentdriver repository's name
+   * repo_revision: revision
+* fwdriver:
+   * repo_name: the fwdriver repository's name
+   * repo_revision: revision
+   * user: fwdriver user name
+   * vm_if: vm interface
+   * vm_et: vm network
+* manager:
+   * repo_name: the manager repository's name
+   * repo_revision: revision
+* monitor-client:
+   * repo_name: the monitor-client repository's name
+   * repo_revision: revision
+* storage-driver:
+   * repo_name: the storage-driver repository's name
+   * repo_revision: revision
+* vm-driver:
+   * repo_name: the vm-driver repository's name
+   * repo_revision: revision
+* vnc-driver:
+   * repo_name: the vnc-driver repository's name
+   * repo_revision: revision
 
 ## Install Circle
 Run the following installation command:
@@ -99,21 +154,21 @@ To create new Virtual Machine, we use Templates - images based on previously sav
 Set name, CPU and RAM settings, architecture. Check in the boot menu box, select network and lease, write down, which operating system will you use. Finally, create a template.
 > The rows marked with astersk need to be filled.
 
-![configure standalone node](docs/images/configure_node.jpg)
+![configure standalone node](images/configure_node.jpg)
 
 #### Add disk
 
 Currently we don't have any disks attached to our VM. To add, click on the Resources menu, 'create disk' icon, set the name and size.
 
-![disk setup](docs/images/disk.jpg)
+![disk setup](images/disk.jpg)
 
 #### Attach ISO
 
 To install an OS, we can use ISO images, to boot from. Click on 'download disk' and type the ISO's URL.
 
-![download iso](docs/images/iso.jpg)
+![download iso](images/iso.jpg)
 
 ### Start Virtual Machine
 Finally, we can run the machine. Click on 'deploy' and start it. You can choose, on which node do you want to run.
 
-![ubuntu 14.04](docs/images/ubuntu.png)
+![ubuntu 14.04](images/ubuntu.png)
