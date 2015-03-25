@@ -9,7 +9,7 @@
 {% set service_dir = "/etc/systemd/system/" if grains['os_family'] == 'RedHat' else "/etc/init/" %}
 {% set service_files = (("vmcelery@.service", "netcelery@.service", "node.service")
                         if grains['os_family'] == 'RedHat' else
-                        ("vmcelery.service", "netcelery.service", "node.service")) %}
+                        ("vmcelery.conf", "netcelery.conf", "node.conf")) %}
 
 {% for file in service_files %}
 {{ service_dir ~ file }}:
