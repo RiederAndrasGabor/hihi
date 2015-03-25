@@ -13,7 +13,11 @@ nginx:
 
 circlecert:
   cmd.run:
+{% if grains['os_family'] == 'RedHat' %}
     - name: ./make-dummy-cert circle.pem
+{% else %}
+    - name: openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout circle.key -out circle.crt -subj '/CN=localhost/O=My Company Name LTD./C=US' && cat circle.key circle.crt > circle.pem && rm circle.key circle.crt; chmod 600 circle.pem
+{% endif %}
     - cwd: /etc/ssl/certs/
     - creates: /etc/ssl/certs/circle.pem
 
