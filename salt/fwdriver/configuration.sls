@@ -32,13 +32,6 @@
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
-/etc/init/isc-dhcp-server.conf:
-  file.managed:
-    - user: root
-    - group: root
-    - template: jinja
-    - source: salt://fwdriver/files/isc-dhcp-server.conf
-
 /etc/init.d/isc-dhcp-server:
   file.symlink:
     - target: /lib/init/upstart-job
@@ -50,7 +43,6 @@ isc-dhcp-server:
     - watch:
       - file: /etc/dhcp/dhcpd.conf
       - file: /etc/dhcp/dhcpd.conf.generated
-      - file: /etc/init/isc-dhcp-server.conf
       - file: /etc/init.d/isc-dhcp-server
 
 /etc/sysctl.d/60-circle-firewall.conf:

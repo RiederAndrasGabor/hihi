@@ -1,3 +1,4 @@
 export GATEWAY={{ pillar['fwdriver']['gateway'] }}
 export AMQP_URI=amqp://{{ pillar['amqp']['user'] }}:{{ pillar['amqp']['password'] }}@{{ pillar['amqp']['host'] }}:{{ pillar['amqp']['port'] }}/{{ pillar['amqp']['vhost'] }}
 export CACHE_URI={{ pillar['cache'] }}
+export BRIDGE_TYPE=NONE
