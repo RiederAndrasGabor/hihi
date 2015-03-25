@@ -1,10 +1,6 @@
 
 # Circle Project Salt Installer
 
-## Add vlan
-
-Before starting the machine - add LAB vlan.
-
 ## Install Salt
 
 ```bash
@@ -37,10 +33,8 @@ pillar_roots:
 Clone circle installer git repository into cloud home
 
 ```bash
-git clone git@git.ik.bme.hu:circle/salt.git
+git clone https://git.ik.bme.hu/circle/salt.git
 ```
-
-## Remove node row from pillar/top.sls
 
 ## Change variables
 Modify installer.sls file
@@ -62,7 +56,6 @@ Most used variables
 	* **queue_name**<sup>*</sup>: storage host name
 * fwdriver
 	* **queue_name**<sup>*</sup>: the server's hostname
-	* **gateway**<sup>*</sup>: the server's gateway
 	* **external_net**<sup>*</sup>: the server's network
 	* **external_if**: the server's network interface
 
@@ -79,34 +72,6 @@ After install, delete agent.conf file:
 
 ```bash
 sudo rm /etc/init/agent.conf
-```
-
-### Current problems 
-
-#### Gateway issue
-```
-cd circle/circle/
-workon circle
-./manage.py firewall_restart
-
-# get eth0 MAC address
-ifconfig
-sudo -i
-ip netns exec fw bash
-ifconfig net hw ether <MAC>
-```
-
-#### Nginx issue
-	Delete configuration file duplication and restart nginx
-```
-sudo rm /etc/nginx/sites-enabled/default
-sudo service nginx restart
-```
-
-#### Open firewall
-```
-sudo ufw allow 443
-sudo ufw allow 80
 ```
 
 ## Quickstart - Standalone Node
