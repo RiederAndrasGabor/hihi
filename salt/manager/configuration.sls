@@ -8,27 +8,52 @@ manager_postactivate:
 
 portal.conf:
   file.managed:
-{% if pillar['deployment_type'] == 'production' %}
-    - name: /etc/init/portal-uwsgi.conf
-    - user: root
-    - group: root
-    - template: jinja
-    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.conf
-{% else %}
+    {% if grains['os_family'] == 'RedHat' %}
+    - name: /etc/systemd/system/portal.service
+    {% else %}
     - name: /etc/init/portal.conf
+    {% endif %}
     - user: root
     - group: root
     - template: jinja
+  {% if grains['os_family'] == 'RedHat' %}
+    {% if pillar['deployment_type'] == 'production' %}
+    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.service
+    {% else %}
+    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal.service
+    {% endif %}
+  {% else %}
+    {% if pillar['deployment_type'] == 'production' %}
+    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.conf
+    {% else %}
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal.conf
-{% endif %}
-  
+    {% endif %}
+  {% endif %}
+
+{% if grains['os_family'] == 'RedHat' %}
+/etc/systemd/system/manager.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/manager.service
+
+/etc/systemd/system/managercelery@.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/managercelery@.service
+
+{% else %}
+
 /etc/init/manager.conf:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/manager.conf
-  
+
 /etc/init/mancelery.conf:
   file.managed:
     - user: root
@@ -49,6 +74,7 @@ portal.conf:
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/slowcelery.conf
+{% endif %}
 
 salt://manager/files/init.sh:
   cmd.script:

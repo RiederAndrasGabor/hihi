@@ -6,9 +6,20 @@
     - group: {{ pillar['user'] }}
     - mode: 700
 
+{% if grains['os_family'] == 'RedHat' %}
+/etc/systemd/system/vncproxy.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['user'] }}/vncproxy/miscellaneous/vncproxy.service
+
+{% else %}
+
 /etc/init/vncproxy.conf:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/vncproxy/miscellaneous/vncproxy.conf
+{% endif %}

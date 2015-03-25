@@ -5,38 +5,12 @@ virtualenv_vmdriver:
     - runas: {{ pillar['user'] }}
     - no_chown: true
 
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirtmod_qemu.so:
-  file.symlink:
-    - target: /usr/lib/python2.7/dist-packages/libvirtmod_qemu.so
-    - require:
-      - virtualenv: virtualenv_vmdriver
+{% set libvirt_dir = "/usr/lib64/python2.7/site-packages/" if grains['os_family'] == 'RedHat' else "/usr/lib/python2.7/dist-packages/" %}
 
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirtmod.so:
+{% for file in ("libvirtmod_qemu.so", "libvirtmod.so", "libvirt_qemu.py", "libvirt.py", "libvirt_qemu.pyc", "libvirt.pyc") %}
+/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/{{ file }}:
   file.symlink:
-    - target: /usr/lib/python2.7/dist-packages/libvirtmod.so
+    - target: {{ libvirt_dir + file }}
     - require:
       - virtualenv: virtualenv_vmdriver
-
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirt_qemu.py:
-  file.symlink:
-    - target: /usr/lib/python2.7/dist-packages/libvirt_qemu.py
-    - require:
-      - virtualenv: virtualenv_vmdriver
-
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirt.py:
-  file.symlink:
-    - target: /usr/lib/python2.7/dist-packages/libvirt.py
-    - require:
-      - virtualenv: virtualenv_vmdriver
-
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirt_qemu.pyc:
-  file.symlink:
-    - target: /usr/lib/python2.7/dist-packages/libvirt_qemu.pyc
-    - require:
-      - virtualenv: virtualenv_vmdriver
-
-/home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/libvirt.pyc:
-  file.symlink:
-    - target: /usr/lib/python2.7/dist-packages/libvirt.pyc
-    - require:
-      - virtualenv: virtualenv_vmdriver
+{% endfor %}

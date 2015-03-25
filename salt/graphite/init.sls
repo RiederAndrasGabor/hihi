@@ -6,11 +6,18 @@ include:
 graphite:
   pkg.installed:
     - pkgs:
-      - virtualenvwrapper
       - git
       - python-pip
       - ntp
+      {% if grains['os_family'] == 'RedHat' %}
+      - pycairo
+      - python-devel
+      - python-virtualenvwrapper
+      {% else %}
       - python-cairo
+      - python-dev
+      - virtualenvwrapper
+      {% endif %}
     - require:
       - user: {{ pillar['graphite']['user'] }}
     - require_in:
@@ -24,7 +31,9 @@ graphite:
 
   service:
     - running
+    - enable: True
 
 graphite-carbon:
   service:
     - running
+    - enable: True

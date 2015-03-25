@@ -1,0 +1,71 @@
+diff --git a/render/evaluator.py b/render/evaluator.py
+index 70490a2..ee7cfd1 100644
+--- a/render/evaluator.py
++++ b/render/evaluator.py
+@@ -37,7 +37,7 @@ def evaluateTokens(requestContext, tokens):
+       return float(tokens.number.scientific[0])
+ 
+   elif tokens.string:
+-    return str(tokens.string)[1:-1]
++    return unicode(tokens.string)[1:-1]
+ 
+   elif tokens.boolean:
+     return tokens.boolean[0] == 'true'
+diff --git a/render/glyph.py b/render/glyph.py
+index a2cc893..7daadce 100644
+--- a/render/glyph.py
++++ b/render/glyph.py
+@@ -181,7 +181,7 @@ class Graph:
+     self.drawRectangle( 0, 0, self.width, self.height )
+ 
+     if 'colorList' in params:
+-      colorList = unquote_plus( str(params['colorList']) ).split(',')
++      colorList = unquote_plus( unicode(params['colorList']) ).split(',')
+     else:
+       colorList = self.defaultColorList
+     self.colors = itertools.cycle( colorList )
+@@ -572,7 +572,7 @@ class LineGraph(Graph):
+     if 'yUnitSystem' not in params:
+       params['yUnitSystem'] = 'si'
+     else:
+-      params['yUnitSystem'] = str(params['yUnitSystem']).lower()
++      params['yUnitSystem'] = unicode(params['yUnitSystem']).lower()
+       if params['yUnitSystem'] not in UnitSystems.keys():
+         params['yUnitSystem'] = 'si'
+ 
+@@ -630,11 +630,11 @@ class LineGraph(Graph):
+     self.setColor( self.foregroundColor )
+ 
+     if params.get('title'):
+-      self.drawTitle( str(params['title']) )
++      self.drawTitle( unicode(params['title']) )
+     if params.get('vtitle'):
+-      self.drawVTitle( str(params['vtitle']) )
++      self.drawVTitle( unicode(params['vtitle']) )
+     if self.secondYAxis and params.get('vtitleRight'):
+-      self.drawVTitle( str(params['vtitleRight']), rightAlign=True )
++      self.drawVTitle( unicode(params['vtitleRight']), rightAlign=True )
+     self.setFont()
+ 
+     if not params.get('hideLegend', len(self.data) > settings.LEGEND_MAX_ITEMS):
+@@ -1582,7 +1582,7 @@ class PieGraph(Graph):
+         if slice['value'] < 10 and slice['value'] != int(slice['value']):
+           label = "%.2f" % slice['value']
+         else:
+-          label = str(int(slice['value']))
++          label = unicode(int(slice['value']))
+       extents = self.getExtents(label)
+       theta = slice['midAngle']
+       x = self.x0 + (self.radius / 2.0 * math.cos(theta))
+diff --git a/render/hashing.py b/render/hashing.py
+index 6575650..45f1bfe 100644
+--- a/render/hashing.py
++++ b/render/hashing.py
+@@ -49,7 +49,7 @@ def stripControlChars(string):
+ 
+ def compactHash(string):
+   hash = md5()
+-  hash.update(string)
++  hash.update(string.encode('utf-8'))
+   return hash.hexdigest()
+

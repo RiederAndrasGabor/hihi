@@ -6,14 +6,21 @@ include:
 agentdriver:
   pkg.installed:
     - pkgs:
-      - virtualenvwrapper
       - git
       - python-pip
       - ntp
       - incron
+      {% if grains['os_family'] == 'RedHat' %}
+      - libmemcached-devel
+      - python-devel
+      - python-virtualenvwrapper
+      - zlib-devel
+      {% else %}
       - libmemcached-dev
-      - zlib1g-dev
       - python-dev
+      - virtualenvwrapper
+      - zlib1g-dev
+      {% endif %}
     - require_in:
       - git: gitrepo_agentdriver
       - virtualenv: virtualenv_agentdriver
@@ -21,11 +28,19 @@ agentdriver:
     - present
     - name: {{ pillar['user'] }}
     - gid_from_name: True
+    - shell: /bin/bash
+    - groups:
+      {% if grains['os_family'] == 'RedHat' %}
+      - wheel
+      {% else %}
+      - sudo
+      {% endif %}
     - require_in:
       - git: gitrepo_agentdriver
       - virtualenv: virtualenv_agentdriver
   service:
     - running
+    - enable: true
     - watch:
       - pkg: agentdriver
       - sls: agentdriver.gitrepo

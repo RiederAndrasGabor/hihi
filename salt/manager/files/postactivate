@@ -3,6 +3,7 @@ export AMQP_URI='amqp://{{ pillar['amqp']['user'] }}:{{ pillar['amqp']['password
 export CACHE_URI='{{ pillar['cache'] }}'
 
 export DJANGO_SETTINGS_MODULE='circle.settings.{{ pillar['deployment_type'] }}'
+export DJANGO_TIME_ZONE=UTC
 export DJANGO_DB_HOST='localhost'
 export DJANGO_DB_PASSWORD='{{ pillar['database']['password'] }}'
 export DJANGO_FIREWALL_SETTINGS='{"dns_ip": "8.8.8.8", "dns_hostname":

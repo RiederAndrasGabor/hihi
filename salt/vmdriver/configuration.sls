@@ -6,26 +6,38 @@
     - group: {{ pillar['user'] }}
     - mode: 700
 
-/etc/init/vmcelery.conf:
-  file.managed:
-    - user: root
-    - group: root
-    - template: jinja
-    - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/vmcelery.conf
+{% set service_dir = "/etc/systemd/system/" if grains['os_family'] == 'RedHat' else "/etc/init/" %}
+{% set service_files = (("vmcelery@.service", "netcelery@.service", "node.service")
+                        if grains['os_family'] == 'RedHat' else
+                        ("vmcelery.service", "netcelery.service", "node.service")) %}
 
-/etc/init/netcelery.conf:
+{% for file in service_files %}
+{{ service_dir ~ file }}:
   file.managed:
     - user: root
     - group: root
     - template: jinja
-    - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/netcelery.conf
+    - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/{{ file }}
+{% endfor %}
 
-/etc/init/node.conf:
-  file.managed:
-    - user: root
-    - group: root
-    - template: jinja
-    - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/node.conf
+{% if grains['os_family'] == 'RedHat' %}
+openvswitch:
+  pkg.installed:
+    - sources:
+      - openvswitch: salt://vmdriver/files/openvswitch-2.3.1-1.x86_64.rpm
+  cmd.run:
+    - name: mkdir /etc/openvswitch; restorecon -R /etc/openvswitch/
+    - creates: /etc/openvswitch
+    - require:
+      - pkg: openvswitch
+  service:
+    - running
+    - enable: True
+    - require:
+      - cmd: openvswitch
+    - required_in:
+      - cmd: ovs-bridge
+{% endif %}
 
 ovs-bridge:
   cmd.run:
