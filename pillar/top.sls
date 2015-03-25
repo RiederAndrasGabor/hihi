@@ -12,4 +12,3 @@ base:
     - manager
     - common
     - installer
-    - node
