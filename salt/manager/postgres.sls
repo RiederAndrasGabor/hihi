@@ -31,7 +31,7 @@ dbuser:
   postgres_user.present:
     - name: {{ pillar['database']['user'] }}
     - password: {{ pillar['database']['password'] }}
-    - runas: postgres
+    - user: postgres
     - require:
       - service: postgresql
 
@@ -43,7 +43,7 @@ database:
     - lc_collate: en_US.UTF8
     - template: template0
     - owner: {{ pillar['database']['user'] }}
-    - runas: postgres
+    - user: postgres
     - require:
       - service: postgresql
       - postgres_user: dbuser

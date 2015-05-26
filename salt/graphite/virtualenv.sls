@@ -2,7 +2,7 @@ virtualenv_graphite:
   virtualenv.managed:
     - name: /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite
     - requirements: /home/{{ pillar['graphite']['user'] }}/requirements.txt
-    - runas: {{ pillar['graphite']['user'] }}
+    - user: {{ pillar['graphite']['user'] }}
     - require:
       - user: {{ pillar['graphite']['user'] }}
       - file: /home/{{ pillar['graphite']['user'] }}/requirements.txt

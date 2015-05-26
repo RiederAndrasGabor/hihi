@@ -6,6 +6,6 @@ gitrepo:
     - name: {{ pillar['manager']['repo_name']  }} 
     - rev: {{ pillar['manager']['repo_revision']  }}
     - target: /home/{{ pillar['user'] }}/circle
-    - runas: {{ pillar['user'] }}
+    - user: {{ pillar['user'] }}
     - require:
       - pkg: git

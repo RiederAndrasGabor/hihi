@@ -9,8 +9,7 @@ nfs-server:
     - name: nfs-kernel-server
     
 /etc/exports:
-  file:
-    - append
+  file.managed:
     - template: jinja
     - sources:
       - salt://storagedriver/files/exports.tmpl
