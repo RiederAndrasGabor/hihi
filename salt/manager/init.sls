@@ -21,6 +21,8 @@ manager:
       - wget
       - swig
       {% if grains['os_family'] == 'RedHat' %}
+      - libffi-devel
+      - openssl-devel
       - libmemcached-devel
       - postgresql-devel
       - postgresql-libs
@@ -30,6 +32,8 @@ manager:
       - python-devel
       - python-virtualenvwrapper
       {% else %}
+      - libffi-dev
+      - libssl-dev
       - libmemcached-dev
       - libpq-dev
       - libxml2-dev
