@@ -1,10 +1,10 @@
 libvirtconf:
-  augeas.setvalue:
-    - prefix: /files/etc/libvirt/libvirtd.conf
+  augeas.change:
+    - context: /files/etc/libvirt/libvirtd.conf
     - changes:
-      - listen_tcp: 1
-      - listen_tls: 0
-      - auth_tcp: "none"
+      - set listen_tcp 1
+      - set listen_tls 0
+      - set auth_tcp "none"
 
 /etc/default/libvirt-bin:
   file.append:
