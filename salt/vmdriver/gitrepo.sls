@@ -7,6 +7,5 @@ gitrepo_vmdriver:
     - rev: {{ pillar['vmdriver']['repo_revision'] }}
     - target: /home/{{ pillar['user'] }}/vmdriver
     - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
     - require:
       - pkg: git

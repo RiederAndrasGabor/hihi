@@ -7,6 +7,5 @@ gitrepo_agentdriver:
     - rev: {{ pillar['agentdriver']['repo_revision'] }}
     - target: /home/{{ pillar['user'] }}/agentdriver
     - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
     - require:
       - pkg: git

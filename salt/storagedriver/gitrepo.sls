@@ -7,6 +7,5 @@ gitrepo_storagedriver:
     - rev: {{ pillar['storagedriver']['repo_revision'] }}
     - target: /home/{{ pillar['user'] }}/storagedriver
     - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
     - require:
       - pkg: git

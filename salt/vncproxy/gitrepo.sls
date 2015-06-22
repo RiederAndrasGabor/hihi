@@ -7,6 +7,5 @@ gitrepo_vncproxy:
     - rev: {{ pillar['vncproxy']['repo_revision'] }}
     - target: /home/{{ pillar['user'] }}/vncproxy
     - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
     - require:
       - pkg: git
