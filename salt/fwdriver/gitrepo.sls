@@ -7,6 +7,5 @@ gitrepo_fwdriver:
     - rev: {{ pillar['fwdriver']['repo_revision'] }}
     - target: /home/{{ pillar['fwdriver']['user'] }}/fwdriver
     - user: {{ pillar['fwdriver']['user'] }}
-    - group: {{ pillar['fwdriver']['user'] }}
     - require:
       - pkg: git
