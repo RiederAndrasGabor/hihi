@@ -1,13 +1,19 @@
 {% if pillar['nfs']['enabled'] %}
 nfs-server:
   service:
+  {% if grains['os_family'] != 'RedHat' %}
    - name: nfs-kernel-server
+  {% endif %}
    - running
    - watch:
      - file: /etc/exports
   pkg.installed:
+  {% if grains['os_family'] == 'RedHat' %}
+    - name: nfs-utils
+  {% else %}  
     - name: nfs-kernel-server
-    
+  {% endif %}
+  
 /etc/exports:
   file.managed:
     - template: jinja

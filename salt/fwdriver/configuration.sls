@@ -6,19 +6,35 @@
     - group: {{ pillar['fwdriver']['user'] }}
     - mode: 700
 
+{% if grains['os_family'] == 'RedHat' %} 
+/etc/systemd/system/firewall.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall.service
+
+/etc/systemd/system/firewall-init.service:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall-init.service
+{% else %}
 /etc/init/firewall.conf:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall.conf
-
+    
 /etc/init/firewall-init.conf:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall-init.conf
+{% endif %}
 
 /etc/dhcp/dhcpd.conf:
   file.managed:
@@ -32,18 +48,12 @@
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
+{% if grains['os_family'] != 'RedHat' %}
 /etc/init.d/isc-dhcp-server:
   file.symlink:
     - target: /lib/init/upstart-job
     - force: True
-
-isc-dhcp-server:
-  service:
-    - running
-    - watch:
-      - file: /etc/dhcp/dhcpd.conf
-      - file: /etc/dhcp/dhcpd.conf.generated
-      - file: /etc/init.d/isc-dhcp-server
+{% endif %}
 
 /etc/sysctl.d/60-circle-firewall.conf:
   file.managed:
@@ -58,3 +68,25 @@ isc-dhcp-server:
     - mode: 400
     - template: jinja
     - source: salt://fwdriver/files/sudoers
+
+{# TODO: standalone module for openvswitch  #}
+{% if grains['os_family'] == 'RedHat' %}
+openvswitch2:
+  pkg.installed:
+    - sources:
+      - openvswitch: salt://vmdriver/files/openvswitch-2.3.1-1.x86_64.rpm
+  cmd.run:
+    - name: mkdir /etc/openvswitch; restorecon -R /etc/openvswitch/
+    - creates: /etc/openvswitch
+    - require:
+      - pkg: openvswitch
+  service:
+    - name: openvswitch
+    - running
+    - enable: True
+    - require:
+      - cmd: openvswitch
+    - required_in:
+      - cmd: ovs-bridge
+{% endif %}
+

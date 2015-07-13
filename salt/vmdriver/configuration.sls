@@ -20,6 +20,7 @@
     - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/{{ file }}
 {% endfor %}
 
+{# TODO: standalone module for openvswitch  #}
 {% if grains['os_family'] == 'RedHat' %}
 openvswitch:
   pkg.installed:

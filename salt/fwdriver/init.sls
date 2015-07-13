@@ -6,39 +6,34 @@ include:
 firewall:
   pkg.installed:
     - pkgs:
+    {% if grains['os_family'] == 'RedHat' %}
+      - zlib-devel
+      - python-virtualenvwrapper
+      - python-devel
+      - libmemcached-devel
+      - dhcp
+    {% else  %}
       - zlib1g-dev
       - virtualenvwrapper
-      - git
-      - python-pip
       - python-dev
       - libmemcached-dev
-      - ntp
       - openvswitch-switch
       - openvswitch-controller
+      - isc-dhcp-server
+    {% endif %}
+      - git
+      - python-pip
+      - ntp
       - iptables
       - ipset
-      - isc-dhcp-server
     - require:
       - user: {{ pillar['fwdriver']['user'] }}
     - require_in:
       - git: gitrepo_fwdriver
       - virtualenv: virtualenv_fwdriver
-      - service: isc-dhcp-server
+
   user:
     - present
     - name: {{ pillar['fwdriver']['user'] }}
     - gid_from_name: True
-  service:
-    - running
-    - require:
-      - service: firewall-init
-    - watch:
-      - pkg: firewall
-      - sls: fwdriver.gitrepo
-      - sls: fwdriver.virtualenv
-      - sls: fwdriver.configuration
-
-firewall-init:
-  service:
-    - running
 

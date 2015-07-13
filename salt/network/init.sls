@@ -7,11 +7,15 @@ vm:
   network.managed:
     - enabled: True
     - type: eth
-    - proto: static
+    - proto: none
     - ipaddr: {{ pillar['fwdriver']['vm_net'].split('/')[0] }}
     - netmask: {{ pillar['fwdriver']['vm_net'].split('/')[1] }}
     - pre_up_cmds:
+    {% if grains['os_family'] == 'RedHat' %}
+      - /bin/systemctl restart openvswitch
+    {% else %}  
       - /etc/init.d/openvswitch-switch restart
+    {% endif %} 
     - require:
       - cmd: ovs-if
 
