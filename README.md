@@ -1,5 +1,4 @@
-
-# Circle Project Salt Installer
+# Circle Project for Cent OS 7 - Salt Installer
 
 ## Install Salt
 
