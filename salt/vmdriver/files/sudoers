@@ -1,1 +1,3 @@
 {{ pillar['user'] }}	ALL = (ALL) NOPASSWD: /usr/bin/ovs-ofctl, /usr/bin/ovs-vsctl, /sbin/ip link set *
+Defaults: cloud !requiretty
+
