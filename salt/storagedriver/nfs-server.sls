@@ -2,11 +2,13 @@
 nfs-server:
   service:
   {% if grains['os_family'] != 'RedHat' %}
-   - name: nfs-kernel-server
+    - name: nfs-kernel-server
   {% endif %}
-   - running
-   - watch:
-     - file: /etc/exports
+    - running
+    - watch:
+      - file: /etc/exports
+    - require:
+      - service: rpcbind
   pkg.installed:
   {% if grains['os_family'] == 'RedHat' %}
     - name: nfs-utils
@@ -14,6 +16,10 @@ nfs-server:
     - name: nfs-kernel-server
   {% endif %}
   
+rpcbind:
+  service:
+    - running
+
 /etc/exports:
   file.managed:
     - template: jinja

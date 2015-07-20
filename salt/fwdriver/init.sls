@@ -36,4 +36,12 @@ firewall:
     - present
     - name: {{ pillar['fwdriver']['user'] }}
     - gid_from_name: True
+  service:
+    - enabled
+    - require:
+      - service: firewall-init
+
+firewall-init:
+  service:
+    - enabled
 

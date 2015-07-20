@@ -8,8 +8,8 @@ vm:
     - enabled: True
     - type: eth
     - proto: none
-    - ipaddr: {{ pillar['fwdriver']['vm_net'].split('/')[0] }}
-    - netmask: {{ pillar['fwdriver']['vm_net'].split('/')[1] }}
+    - ipaddr: {{ pillar['fwdriver']['vm_net_ip'] }}
+    - netmask: {{ pillar['fwdriver']['vm_net_mask'] }}
     - pre_up_cmds:
     {% if grains['os_family'] == 'RedHat' %}
       - /bin/systemctl restart openvswitch
@@ -32,3 +32,6 @@ salt://network/files/reload_firewall.sh:
     - user: {{ pillar['user'] }}
     - require:
       - service: firewall2
+
+salt://network/files/fix_dhcp.sh:
+  cmd.script
