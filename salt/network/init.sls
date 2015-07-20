@@ -35,3 +35,11 @@ salt://network/files/reload_firewall.sh:
 
 salt://network/files/fix_dhcp.sh:
   cmd.script
+
+isc-dhcp-server:
+  service:
+    - running
+    - enabled
+  {% if grains['os_family'] == 'RedHat' %}
+    - name: dhcpd
+  {% endif %}

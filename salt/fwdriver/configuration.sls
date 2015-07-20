@@ -88,5 +88,8 @@ openvswitch2:
       - cmd: openvswitch
     - required_in:
       - cmd: ovs-bridge
+
+salt://fwdriver/files/install_selinux_module.sh:
+  cmd.script
 {% endif %}
 
