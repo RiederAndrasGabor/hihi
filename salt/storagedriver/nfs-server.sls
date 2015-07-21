@@ -1,4 +1,13 @@
 {% if pillar['nfs']['enabled'] %}
+rpcbind:
+  pkg:
+   - installed
+
+  service:
+   - running
+   - require:
+     - pkg: rpcbind
+
 nfs-server:
   service:
   {% if grains['os_family'] != 'RedHat' %}
@@ -15,10 +24,6 @@ nfs-server:
   {% else %}  
     - name: nfs-kernel-server
   {% endif %}
-  
-rpcbind:
-  service:
-    - running
 
 /etc/exports:
   file.managed:
