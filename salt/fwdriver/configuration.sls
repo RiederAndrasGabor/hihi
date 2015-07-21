@@ -100,7 +100,7 @@ firewall-init_semodule:
     - cwd: /root
     - user: root
     - name: checkmodule -M -m -o firewall-init.mod firewall-init.te; semodule_package -o firewall-init.pp -m firewall-init.mod; semodule -i firewall-init.pp
-    - unless: semodule -l |grep -qs ^vmdriver
+    - unless: semodule -l |grep -qs ^firewall-init
     - require:
       - file: /root/firewall-init.te
 
