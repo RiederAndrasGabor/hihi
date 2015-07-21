@@ -1,4 +1,8 @@
+
 {% if grains['os_family'] == 'RedHat' %}
+postgresql-server:
+  pkg.installed
+
 postgresql_initdb:
   cmd.run:
     - cwd: /
