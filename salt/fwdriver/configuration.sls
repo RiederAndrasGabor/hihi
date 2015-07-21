@@ -89,7 +89,20 @@ openvswitch2:
     - required_in:
       - cmd: ovs-bridge
 
-salt://fwdriver/files/install_selinux_module.sh:
-  cmd.script
+/root/firewall-init.te:
+  file.managed:
+    - source: salt://fwdriver/files/firewall-init.te
+    - template: jinja
+    - mode: 644
+
+firewall-init_semodule:
+  cmd.run:
+    - cwd: /root
+    - user: root
+    - name: checkmodule -M -m -o firewall-init.mod firewall-init.te; semodule_package -o firewall-init.pp -m firewall-init.mod; semodule -i firewall-init.pp
+    - unless: semodule -l |grep -qs ^vmdriver
+    - require:
+      - file: /root/firewall-init.te
+
 {% endif %}
 
