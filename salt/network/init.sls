@@ -26,15 +26,15 @@ firewall2:
     - require:
       - network: vm
 
-salt://network/files/fix_dhcp.sh:
-  cmd.script
-
 salt://network/files/reload_firewall.sh:
   cmd.script:
     - template: jinja
     - user: {{ pillar['user'] }}
     - require:
       - service: firewall2
+
+salt://network/files/fix_dhcp.sh:
+  cmd.script
 
 isc-dhcp-server:
   service:
