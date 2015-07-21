@@ -39,7 +39,8 @@ salt://network/files/fix_dhcp.sh:
 isc-dhcp-server:
   service:
     - running
-    - enabled
   {% if grains['os_family'] == 'RedHat' %}
     - name: dhcpd
   {% endif %}
+    - enable: True
+

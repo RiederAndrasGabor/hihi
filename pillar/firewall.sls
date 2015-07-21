@@ -8,6 +8,8 @@ fwdriver:
 
   vm_if: vm
   vm_net: 192.168.2.254/24
+  vm_net_ip: 192.168.2.254
+  vm_net_mask: 255.255.255.0
 
   management_if: eth5
   management_net: 192.168.1.254/24
