@@ -36,6 +36,10 @@
     - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall-init.conf
 {% endif %}
 
+/etc/dhcp:
+  file.directory:
+    - mode: 755
+
 /etc/dhcp/dhcpd.conf:
   file.managed:
     - user: root
