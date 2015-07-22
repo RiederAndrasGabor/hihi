@@ -1,6 +1,5 @@
 include:
   - manager
-  - agentdriver
   - graphite
   - monitor-client
   - storagedriver
@@ -8,3 +7,4 @@ include:
   - vncproxy
   - fwdriver
   - network
+  - agentdriver
