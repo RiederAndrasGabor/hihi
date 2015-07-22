@@ -3,8 +3,8 @@ include:
   - graphite
   - monitor-client
   - storagedriver
+  - agentdriver
   - vmdriver
   - vncproxy
   - fwdriver
   - network
-  - agentdriver
