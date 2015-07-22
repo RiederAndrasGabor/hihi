@@ -43,4 +43,5 @@ isc-dhcp-server:
     - name: dhcpd
   {% endif %}
     - enable: True
+    - reload: True
 
