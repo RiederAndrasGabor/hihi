@@ -38,11 +38,4 @@ agentdriver:
     - require_in:
       - git: gitrepo_agentdriver
       - virtualenv: virtualenv_agentdriver
-  service:
-    - running
-    - enable: true
-    - watch:
-      - pkg: agentdriver
-      - sls: agentdriver.gitrepo
-      - sls: agentdriver.virtualenv
-      - sls: agentdriver.configuration
+

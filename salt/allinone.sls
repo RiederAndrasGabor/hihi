@@ -1,9 +1,9 @@
 include:
+  - agentdriver
   - manager
   - graphite
   - monitor-client
   - storagedriver
-  - agentdriver
   - vmdriver
   - vncproxy
   - fwdriver

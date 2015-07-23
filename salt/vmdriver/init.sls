@@ -52,6 +52,18 @@ vmdriver:
       - augeas: libvirtconf
       - git: gitrepo_vmdriver
       - virtualenv: virtualenv_vmdriver
+
+agentdriver_service:
+  service:
+    - name: agentdriver
+    - running
+    - enable: true
+    - watch:
+      - pkg: agentdriver
+      - sls: agentdriver.gitrepo
+      - sls: agentdriver.virtualenv
+      - sls: agentdriver.configuration
+
 node:
   service:
     - running
