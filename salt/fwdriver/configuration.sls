@@ -73,8 +73,14 @@
     - template: jinja
     - source: salt://fwdriver/files/sudoers
 
-{# TODO: standalone module for openvswitch  #}
+
 {% if grains['os_family'] == 'RedHat' %}
+
+systemd-sysctl:
+  service.running:
+    - reload: True
+
+{# TODO: standalone module for openvswitch  #}
 openvswitch2:
   pkg.installed:
     - sources:
