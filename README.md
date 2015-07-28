@@ -43,7 +43,7 @@ sudo pip install salt==2014.7.1
 Open the salt minion configuration
 
 ```bash
-sudo mkdir /etc/salt
+sudo mkdir -p /etc/salt
 sudo vim /etc/salt/minion
 ```
 
