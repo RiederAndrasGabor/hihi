@@ -8,5 +8,4 @@ gunicorn
 pytz
 pyparsing
 whisper
-carbon
 graphite-web
