@@ -6,6 +6,7 @@
     * Red Hat Enterprise Linux 7+ --> work in progress
     * Cent OS 7+
     * Scientific Linux 7+ --> work in progress
+    * Oracle Linux 7+ --> work in progress
 * Debian Linux family:
     * Debian linux 8+ --> work in progress
     * Ubuntu linux 14.04 LTS
