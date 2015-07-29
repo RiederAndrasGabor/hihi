@@ -3,9 +3,9 @@
 ## OS Support
 
 * Red Hat Linux family:
-    * Red Hat Enterprise Linux 7+ --> work in progress
+    * Red Hat Enterprise Linux 7+
     * Cent OS 7+
-    * Scientific Linux 7+ --> work in progress
+    * Scientific Linux 7+
     * Oracle Linux 7+ --> work in progress
 * Debian Linux family:
     * Debian linux 8+ --> work in progress
@@ -71,7 +71,7 @@ git clone https://git.ik.bme.hu/circle/salt.git
 ## Change variables
 Modify installer.sls file
 ```
-sudo vim salt/pillar/installer.sls
+vim salt/pillar/installer.sls
 ```
 
 Most used variables
