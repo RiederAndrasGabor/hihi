@@ -10,6 +10,7 @@ postactivate:
 requirements:  
   file.managed:
       - name: /home/{{ pillar['graphite']['user'] }}/requirements.txt
+      - template: jinja
       - source: salt://graphite/files/requirements.txt
       - user: {{ pillar['graphite']['user'] }}
       - group: {{ pillar['graphite']['user'] }}
