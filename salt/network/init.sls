@@ -33,8 +33,10 @@ salt://network/files/reload_firewall.sh:
     - require:
       - service: firewall2
 
+{% if grains['os_family'] == 'RedHat' %}
 salt://network/files/fix_dhcp.sh:
   cmd.script
+{% endif %}
 
 isc-dhcp-server:
   service:
