@@ -206,4 +206,16 @@ Finally, we can run the machine. Click on 'deploy' and start it. You can choose,
 ![ubuntu 14.04](_static/images/ubuntu.png)
 
 ## Troubleshooting ##
-Comming soon!
+
+### Portal wont loaded
+Maybe port 443 closed. Check and open it.
+
+### Portal wont loaded on Ubuntu 14.04
+```bash
+sudo service nginx restart
+```
+
+### Cannot reach the internet on VM-s on distro from Red Hat family
+```bash
+sudo systemctl restart systemd-sysctl
+```
