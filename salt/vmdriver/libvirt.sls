@@ -1,3 +1,8 @@
+augeas_dependency:
+  pkg.installed:
+    - pkgs:
+      - python-augeas
+
 libvirtconf:
   augeas.change:
     - context: /files/etc/libvirt/libvirtd.conf
