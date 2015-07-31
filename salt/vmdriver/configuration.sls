@@ -1,3 +1,6 @@
+include:
+  - openvswitch
+
 /home/{{ pillar['user'] }}/.virtualenvs/vmdriver/bin/postactivate:
   file.managed:
     - source: salt://vmdriver/files/postactivate
@@ -19,26 +22,6 @@
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/{{ file }}
 {% endfor %}
-
-{# TODO: standalone module for openvswitch  #}
-{% if grains['os_family'] == 'RedHat' %}
-openvswitch:
-  pkg.installed:
-    - sources:
-      - openvswitch: salt://vmdriver/files/openvswitch-2.3.1-1.x86_64.rpm
-  cmd.run:
-    - name: mkdir /etc/openvswitch; restorecon -R /etc/openvswitch/
-    - creates: /etc/openvswitch
-    - require:
-      - pkg: openvswitch
-  service:
-    - running
-    - enable: True
-    - require:
-      - cmd: openvswitch
-    - required_in:
-      - cmd: ovs-bridge
-{% endif %}
 
 ovs-bridge:
   cmd.run:

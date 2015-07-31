@@ -10,20 +10,20 @@ rpcbind:
 
 nfs-server:
   service:
-  {% if grains['os_family'] != 'RedHat' %}
+    {% if grains['os_family'] != 'RedHat' %}
     - name: nfs-kernel-server
-  {% endif %}
+    {% endif %}
     - running
     - watch:
       - file: /etc/exports
     - require:
       - service: rpcbind
   pkg.installed:
-  {% if grains['os_family'] == 'RedHat' %}
+    {% if grains['os_family'] == 'RedHat' %}
     - name: nfs-utils
-  {% else %}  
+    {% else %}  
     - name: nfs-kernel-server
-  {% endif %}
+    {% endif %}
 
 /etc/exports:
   file.managed:

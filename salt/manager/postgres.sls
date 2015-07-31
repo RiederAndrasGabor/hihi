@@ -1,4 +1,3 @@
-
 {% if grains['os_family'] == 'RedHat' %}
 postgresql-server:
   pkg.installed

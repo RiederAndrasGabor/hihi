@@ -1,3 +1,6 @@
+include:
+  - openvswitch
+
 /home/{{ pillar['fwdriver']['user'] }}/.virtualenvs/fw/bin/postactivate:
   file.managed:
     - source: salt://fwdriver/files/postactivate
@@ -79,25 +82,6 @@
 systemd-sysctl:
   service.running:
     - reload: True
-
-{# TODO: standalone module for openvswitch  #}
-openvswitch2:
-  pkg.installed:
-    - sources:
-      - openvswitch: salt://vmdriver/files/openvswitch-2.3.1-1.x86_64.rpm
-  cmd.run:
-    - name: mkdir /etc/openvswitch; restorecon -R /etc/openvswitch/
-    - creates: /etc/openvswitch
-    - require:
-      - pkg: openvswitch
-  service:
-    - name: openvswitch
-    - running
-    - enable: True
-    - require:
-      - cmd: openvswitch
-    - required_in:
-      - cmd: ovs-bridge
 
 /root/firewall-init.te:
   file.managed:

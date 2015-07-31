@@ -11,11 +11,11 @@ vm:
     - ipaddr: {{ pillar['fwdriver']['vm_net_ip'] }}
     - netmask: {{ pillar['fwdriver']['vm_net_mask'] }}
     - pre_up_cmds:
-    {% if grains['os_family'] == 'RedHat' %}
+      {% if grains['os_family'] == 'RedHat' %}
       - /bin/systemctl restart openvswitch
-    {% else %}  
+      {% else %}  
       - /etc/init.d/openvswitch-switch restart
-    {% endif %} 
+      {% endif %} 
     - require:
       - cmd: ovs-if
 
@@ -41,9 +41,9 @@ salt://network/files/fix_dhcp.sh:
 isc-dhcp-server:
   service:
     - running
-  {% if grains['os_family'] == 'RedHat' %}
+    {% if grains['os_family'] == 'RedHat' %}
     - name: dhcpd
-  {% endif %}
+    {% endif %}
     - enable: True
     - reload: True
 

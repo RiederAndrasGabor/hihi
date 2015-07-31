@@ -16,19 +16,23 @@ portal.conf:
     - user: root
     - group: root
     - template: jinja
-  {% if grains['os_family'] == 'RedHat' %}
+    {% if grains['os_family'] == 'RedHat' %}
+
     {% if pillar['deployment_type'] == 'production' %}
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.service
     {% else %}
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal.service
     {% endif %}
-  {% else %}
+    
+    {% else %}
+    
     {% if pillar['deployment_type'] == 'production' %}
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.conf
     {% else %}
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal.conf
     {% endif %}
-  {% endif %}
+
+    {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
 /etc/systemd/system/manager.service:

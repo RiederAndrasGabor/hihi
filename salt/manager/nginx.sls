@@ -13,11 +13,11 @@ nginx:
 
 circlecert:
   cmd.run:
-{% if grains['os_family'] == 'RedHat' %}
+    {% if grains['os_family'] == 'RedHat' %}
     - name: ./make-dummy-cert circle.pem
-{% else %}
+    {% else %}
     - name: openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout circle.key -out circle.crt -subj '/CN=localhost/O=My Company Name LTD./C=US' && cat circle.key circle.crt > circle.pem && rm circle.key circle.crt; chmod 600 circle.pem
-{% endif %}
+    {% endif %}
     - cwd: /etc/ssl/certs/
     - creates: /etc/ssl/certs/circle.pem
 
@@ -37,11 +37,11 @@ nginx_selinux:
 
 nginxdefault:
   file.managed:
-  {% if grains['os_family'] == 'RedHat' %}
+    {% if grains['os_family'] == 'RedHat' %}
     - name: /etc/nginx/conf.d/default.conf
-  {% else %}
+    {% else %}
     - name: /etc/nginx/sites-enabled/default
-  {% endif %}
+    {% endif %}
     - template: jinja
     - source: salt://manager/files/nginx-default-site.conf
     - user: root

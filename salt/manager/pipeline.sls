@@ -4,13 +4,13 @@ nodejs-legacy:
 {% endif %}
 
 npm:
-{% if grains['os'] == 'Ubuntu' %}
+  {% if grains['os'] == 'Ubuntu' %}
   pkg.installed:
     - require:
       - pkg: nodejs-legacy
-{% else %}
+  {% else %}
   pkg.installed
-{% endif %}
+  {% endif %}
 
 bower:
   npm.installed:

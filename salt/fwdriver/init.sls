@@ -6,13 +6,13 @@ include:
 firewall:
   pkg.installed:
     - pkgs:
-    {% if grains['os_family'] == 'RedHat' %}
+      {% if grains['os_family'] == 'RedHat' %}
       - zlib-devel
       - python-virtualenvwrapper
       - python-devel
       - libmemcached-devel
       - dhcp
-    {% else  %}
+      {% else  %}
       - zlib1g-dev
       - virtualenvwrapper
       - python-dev
@@ -20,7 +20,7 @@ firewall:
       - openvswitch-switch
       - openvswitch-controller
       - isc-dhcp-server
-    {% endif %}
+      {% endif %}
       - git
       - python-pip
       - ntp
