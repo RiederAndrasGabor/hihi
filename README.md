@@ -30,6 +30,7 @@ sudo yum install python-pip gcc vim git
 
 Install some important packages:
 ```bash
+sudo apt-get update
 sudo apt-get install python-pip git
 ```
 
