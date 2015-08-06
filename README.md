@@ -56,6 +56,7 @@ Most used variables
 * **proxy_secret**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
 * **secret_key**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
 * **deployment_type**: local (development) or production
+  **deployment_mode**: standalone or multinode
 * **admin_user**: user name to login in as admin on the site
 * **admin_pass**: password to login in as admin on the site
 * **database**:
