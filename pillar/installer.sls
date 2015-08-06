@@ -5,6 +5,7 @@
 #timezone: Europe/Budapest
 
 #deployment_type: local
+#deployment_mode: standalone
 
 #admin_user: admin
 #admin_pass: 4j23oihreehfd
@@ -39,10 +40,10 @@
 #  directory: /datastore
 
 #storagedriver:
-#  queue_name: cloud-6605
+#  queue_name: cloud-6801
 
 #fwdriver:
-#  queue_name: cloud-6605
+#  queue_name: cloud-6801
 #  gateway: 10.0.255.254
 #  external_net: 10.0.0.115/16
 #  external_if: eth0

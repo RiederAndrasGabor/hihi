@@ -30,3 +30,17 @@ virtual_host:
     - read: .*
     - require:
       - service: rabbitmq-server
+
+{% if pillar["deployment_mode"] == "multinode" %}
+open_amqp_port:
+  cmd.run:
+    {% if grains['os_family'] == 'RedHat' %}
+    - name: >
+        firewall-cmd --complete-reload ;
+        firewall-cmd --permanent --zone=public --add-port=5672/tcp ;
+        firewall-cmd --reload
+    {% else %}
+    - name: ufw allow 5672/tcp
+    {% endif %}
+
+{% endif %}

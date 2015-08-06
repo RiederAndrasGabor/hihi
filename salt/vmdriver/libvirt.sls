@@ -23,8 +23,11 @@ libvirt-bin:
   service:
     - running
     - watch:
-      - file: /etc/default/libvirt-bin
+      - file: /etc/default/libvirt-bin      
       - augeas: libvirtconf
+      {% if grains['os_family'] == 'RedHat' %}
+      - file: /etc/sysconfig/libvirtd
+      {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
 /usr/bin/kvm:
@@ -124,3 +127,28 @@ apparmor:
     {% endif %}
     - group: kvm
     - mode: 755
+
+{% if pillar["deployment_mode"] == "multinode" %}
+open_libvirt_ports:
+  cmd.run:
+  {% if grains['os_family'] == 'RedHat' %}
+    - name: >
+        firewall-cmd --complete-reload ;
+        firewall-cmd --permanent --zone=public --add-port=49152-49215/tcp ;
+        firewall-cmd --permanent --zone=public --add-port=16509/tcp ;
+        firewall-cmd --reload
+  {% else %}
+    - name: >
+        ufw allow 49152:49215/tcp
+        ufw allow 16509/tcp
+  {% endif %}
+
+{% endif %}
+
+{% if grains['os_family'] == 'RedHat' %}
+/etc/sysconfig/libvirtd:
+  file.append:
+    - text: LIBVIRTD_ARGS="--listen"
+{% endif %}
+
+

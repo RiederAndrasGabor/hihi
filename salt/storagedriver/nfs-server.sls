@@ -32,4 +32,19 @@ nfs-server:
       - salt://storagedriver/files/exports.tmpl
     - require:
       - pkg: nfs-server
+
+{% if grains['os_family'] == 'RedHat' %}
+/etc/sysconfig/nfs:
+{% else %}
+/etc/default/nfs-common
+{% endif %}
+  file.managed:
+    - source: salt://storagedriver/files/nfsconfig
+
+{% if pillar["deployment_mode"] == "multinode" %}
+salt://storagedriver/files/openports.sh:
+  cmd.script:
+    - template: jinja
+{% endif %}
+
 {% endif %}
