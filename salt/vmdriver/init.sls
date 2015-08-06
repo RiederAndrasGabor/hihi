@@ -32,7 +32,10 @@ vmdriver:
       - libxslt1-dev
       - openvswitch-common
       - openvswitch-switch
+      {% if grains['os'] != 'Debian' %}
+      {# No such package in Debian Jessie! #}
       - openvswitch-controller
+      {% endif %}
       - python-dev
       - python-libvirt
       - virtualenvwrapper
@@ -41,7 +44,7 @@ vmdriver:
       {% endif %}
     - require_in:
       - file: /etc/default/libvirt-bin
-      {% if grains['os_family'] == 'RedHat' %}
+      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
       - service: libvirtd
       {% else %}
       - file: /etc/apparmor.d/libvirt/TEMPLATE

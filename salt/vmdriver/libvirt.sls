@@ -15,7 +15,7 @@ libvirtconf:
   file.append:
     - text: libvirtd_opts="-d -l"
 
-{% if grains['os_family'] == 'RedHat' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 libvirtd:
 {% else %}
 libvirt-bin:

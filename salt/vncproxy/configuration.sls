@@ -6,7 +6,7 @@
     - group: {{ pillar['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 /etc/systemd/system/vncproxy.service:
   file.managed:
     - user: root

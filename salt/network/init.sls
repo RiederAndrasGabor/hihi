@@ -11,7 +11,7 @@ vm:
     - ipaddr: {{ pillar['fwdriver']['vm_net_ip'] }}
     - netmask: {{ pillar['fwdriver']['vm_net_mask'] }}
     - pre_up_cmds:
-      {% if grains['os_family'] == 'RedHat' %}
+      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
       - /bin/systemctl restart openvswitch
       {% else %}  
       - /etc/init.d/openvswitch-switch restart

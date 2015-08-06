@@ -9,7 +9,7 @@ include:
     - group: {{ pillar['fwdriver']['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' %} 
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %} 
 /etc/systemd/system/firewall.service:
   file.managed:
     - user: root
