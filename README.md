@@ -1,4 +1,4 @@
-# Circle Project - Salt Installer
+# CIRCLE Project - Salt Installer
 
 ## OS Support
 
@@ -6,11 +6,8 @@
     * Red Hat Enterprise Linux 7+
     * Cent OS 7+
     * Scientific Linux 7+
-    * Oracle Linux 7+ --> work in progress
 * Debian Linux family:
-    * Debian linux 8+ --> work in progress
     * Ubuntu linux 14.04 LTS
-    * Ubuntu linux 15.04+ --> work in progress
 
 ## Prerequisites
 
@@ -207,7 +204,7 @@ Finally, we can run the machine. Click on 'deploy' and start it. You can choose,
 
 ## Troubleshooting ##
 
-### Portal wont loaded
+### Portal won't loaded
 Maybe port 443 closed. Check and open it.
 
 ### Portal wont loaded on Ubuntu 14.04

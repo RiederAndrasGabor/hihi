@@ -1,6 +1,6 @@
 fwdriver:
   repo_name: https://git.ik.bme.hu/circle/fwdriver.git
-  repo_revision: systemd_feature
+  repo_revision: master
 
   user: fw
 
