@@ -28,8 +28,7 @@ nfs-server:
 /etc/exports:
   file.managed:
     - template: jinja
-    - sources:
-      - salt://storagedriver/files/exports.tmpl
+    - source: salt://storagedriver/files/exports.tmpl
     - require:
       - pkg: nfs-server
 
