@@ -139,7 +139,7 @@ open_libvirt_ports:
         firewall-cmd --reload
   {% else %}
     - name: >
-        ufw allow 49152:49215/tcp
+        ufw allow 49152:49215/tcp ;
         ufw allow 16509/tcp
   {% endif %}
 
