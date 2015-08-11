@@ -206,3 +206,4 @@ if error_num == 0:
 else:
     print_warning('%i error occured during install!' % error_num)
     dump_errors(result)
+
