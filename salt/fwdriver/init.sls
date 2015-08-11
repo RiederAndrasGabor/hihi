@@ -3,6 +3,16 @@ include:
   - fwdriver.virtualenv
   - fwdriver.configuration
 
+disable_os_firewall:
+  cmd.run:
+    {% if grains['os_family'] == 'RedHat' %}
+    - name: >
+        systemctl disable firewalld ;
+        systemctl stop firewalld
+    {% else %}
+    - name: ufw disable
+    {% endif %}
+
 firewall:
   pkg.installed:
     - pkgs:

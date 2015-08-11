@@ -131,17 +131,17 @@ apparmor:
 {% if pillar["deployment_mode"] == "multinode" %}
 open_libvirt_ports:
   cmd.run:
-  {% if grains['os_family'] == 'RedHat' %}
+    {% if grains['os_family'] == 'RedHat' %}
     - name: >
         firewall-cmd --complete-reload ;
         firewall-cmd --permanent --zone=public --add-port=49152-49215/tcp ;
         firewall-cmd --permanent --zone=public --add-port=16509/tcp ;
         firewall-cmd --reload
-  {% else %}
+    {% else %}
     - name: >
         ufw allow 49152:49215/tcp ;
         ufw allow 16509/tcp
-  {% endif %}
+    {% endif %}
 
 {% endif %}
 
