@@ -55,7 +55,7 @@ include:
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
-{% if grains['os_family'] != 'RedHat' %}
+{% if grains['os_family'] != 'RedHat' and grains['os'] != 'Debian' %}
 /etc/init.d/isc-dhcp-server:
   file.symlink:
     - target: /lib/init/upstart-job

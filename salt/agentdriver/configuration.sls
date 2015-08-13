@@ -37,7 +37,7 @@ incrond:
 incron:
 {% endif %}
   service:
-    - reload: true
+    - full_restart: true
     - enable: true
     - running
     - watch:

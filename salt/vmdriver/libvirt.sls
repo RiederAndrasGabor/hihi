@@ -65,7 +65,7 @@ vmdriver_semodule:
       - file: /root/vmdriver.te
       - pkg: selinux_pkgs
 
-{% else %}
+{% elif grains['os'] != 'Debian' %}
 
 /etc/apparmor.d/libvirt/TEMPLATE:
   file.managed:
