@@ -43,12 +43,10 @@ Open the salt minion configuration
 
 ```bash
 sudo mkdir -p /etc/salt
-sudo vim /etc/salt/minion
 ```
 
-Add these lines:
-
 ```bash
+sudo sh -c "cat > sudo vim /etc/salt/minion" << END
 file_client: local
 
 file_roots:
@@ -58,6 +56,7 @@ file_roots:
 pillar_roots:
   base:
     - /home/cloud/salt/pillar
+END
 ```
 ## Get the installer
 Clone circle installer git repository into cloud home
