@@ -1,7 +1,7 @@
 nginx:
   service.running:
     - enable: True
-    - require:
+    - watch:
        - pkg: nginx
        - cmd: circlecert
        - file: nginxdefault
