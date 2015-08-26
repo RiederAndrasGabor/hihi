@@ -56,7 +56,7 @@ Most used variables
 * **proxy_secret**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
 * **secret_key**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
 * **deployment_type**: local (development) or production
-  **deployment_mode**: standalone or multinode
+* **deployment_mode**: standalone or multinode
 * **admin_user**: user name to login in as admin on the site
 * **admin_pass**: password to login in as admin on the site
 * **database**:
@@ -98,6 +98,7 @@ Other variables
     * name: django database’s name
     * user: database user
 * fwdriver:
+    * open_ports: True or False - open necessary ports for libvirt, nfs server and AMQP services
     * repo_revision: revision
     * user: fwdriver user name
     * vm_if: vm interface
