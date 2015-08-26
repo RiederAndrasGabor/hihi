@@ -59,3 +59,13 @@ firewall-init:
   service:
     - enabled
 
+{# TODO: standalone firewall mode #}
+{% if pillar['fwdriver']['open_ports'] %}
+salt://fwdriver/files/open_ports.sh:
+  cmd.script:
+    - template: jinja
+    - user: {{ pillar['user'] }}
+    - require:
+      - service: firewall
+{% endif %}
+

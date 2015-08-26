@@ -44,6 +44,7 @@
 
 #fwdriver:
 #  queue_name: cloud-6801
+#  open_ports: False
 #  gateway: 10.0.255.254
 #  external_net: 10.0.0.115/16
 #  external_if: eth0
