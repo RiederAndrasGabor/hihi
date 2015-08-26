@@ -34,3 +34,7 @@ export DEFAULT_FROM_EMAIL='root@localhost'
 
 #LOCAL="/home//.virtualenvs/circle/bin/postactivate.local"
 #test -f "$LOCAL" && . "$LOCAL"
+
+{% if 'vnc_port_range' in pillar %}
+    export VNC_PORT_RANGE='{{ pillar['vnc_port_range'] }}'
+{% endif %}

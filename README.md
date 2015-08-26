@@ -119,6 +119,7 @@ Other variables
     * repo_revision: revision
 * vnc-driver:
     * repo_revision: revision
+* vnc_port_range: FromPort, ToPort
 
 ## Install Circle
 Run the following installation command:
