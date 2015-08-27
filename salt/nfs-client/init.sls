@@ -1,3 +1,14 @@
+rpcbind_for_nfs_client:
+  pkg.installed:
+    - name: rpcbind
+
+  service:
+   - running
+   - name: rpcbind
+   - reload: True
+   - require:
+     - pkg: rpcbind
+
 nfs-client:
   pkg.installed:
     - pkgs:
@@ -33,8 +44,9 @@ nfs_selinux:
     - pass_num: 2
     - persist: True
     - mkmnt: True
-    {% if grains['os_family'] == 'RedHat' %}
     - require:
+      - service: rpcbind_for_nfs_client
+      {% if grains['os_family'] == 'RedHat' %}
       - pkg: nfs_selinux
-    {% endif %}
+      {% endif %}
 
