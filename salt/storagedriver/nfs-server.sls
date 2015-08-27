@@ -40,7 +40,7 @@ nfs-server:
   file.managed:
     - source: salt://storagedriver/files/nfsconfig
 
-{% if pillar["deployment_mode"] == "multinode" %}
+{% if pillar["deployment_mode"] == "node" %}
 salt://storagedriver/files/openports.sh:
   cmd.script:
     - template: jinja

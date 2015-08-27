@@ -5,6 +5,7 @@ secret_key: Ga4aex3Eesohngo
 timezone: Europe/Budapest
 
 deployment_type: local
+deployment_mode: standalone
 
 admin_user: admin
 admin_pass: 4j23oihreehfd

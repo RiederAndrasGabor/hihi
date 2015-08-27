@@ -128,7 +128,7 @@ apparmor:
     - group: kvm
     - mode: 755
 
-{% if pillar["deployment_mode"] == "multinode" %}
+{% if pillar["deployment_mode"] == "node" %}
 open_libvirt_ports:
   cmd.run:
     {% if grains['os_family'] == 'RedHat' %}

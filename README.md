@@ -1,4 +1,4 @@
-# CIRCLE Project - Salt Installer
+# CIRCLE Project - Salt Installer for multiple nodes
 
 ## OS Support
 
@@ -56,7 +56,7 @@ Most used variables
 * **proxy_secret**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
 * **secret_key**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
 * **deployment_type**: local (development) or production
-* **deployment_mode**: standalone or multinode
+* **deployment_mode**: standalone or head or node
 * **admin_user**: user name to login in as admin on the site
 * **admin_pass**: password to login in as admin on the site
 * **database**:
@@ -98,7 +98,7 @@ Other variables
     * name: django database’s name
     * user: database user
 * fwdriver:
-    * open_ports: True or False - open necessary ports for libvirt, nfs server and AMQP services
+    * open_ports: True or False - open necessary ports for libvirt, nfs server and AMQP services (only for head machine)
     * repo_revision: revision
     * user: fwdriver user name
     * vm_if: vm interface
@@ -124,9 +124,16 @@ Other variables
 ## Install Circle
 Run the following installation command:
 
+*For head machine:*
 ```bash
-sudo salt-call state.sls allinone --local --file-root=/home/$USER/salt/salt --pillar-root=/home/$USER/salt/pillar
+sudo salt-call state.sls head --local --file-root=/home/$USER/salt/salt --pillar-root=/home/$USER/salt/pillar
 ```
+
+*For node machines:*
+```bash
+sudo salt-call state.sls node --local --file-root=/home/$USER/salt/salt --pillar-root=/home/$USER/salt/pillar
+```
+
 After this finished, you have to get "Failed: 0" message.
 If installer fails, please visit the [Troubleshooting](#troubleshooting) paragraph.
 

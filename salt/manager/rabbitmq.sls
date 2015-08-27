@@ -31,7 +31,7 @@ virtual_host:
     - require:
       - service: rabbitmq-server
 
-{% if pillar["deployment_mode"] == "multinode" %}
+{% if pillar["deployment_mode"] == "node" %}
 open_amqp_port:
   cmd.run:
     {% if grains['os_family'] == 'RedHat' %}
