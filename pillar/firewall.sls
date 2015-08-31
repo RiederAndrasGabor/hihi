@@ -17,5 +17,5 @@ fwdriver:
   external_if: eth0
   external_net: 10.0.0.97/16
   gateway: 10.0.255.254
-
   reload_firewall_timeout: 120
+  open_ports: False
