@@ -65,7 +65,33 @@ vmdriver_semodule:
       - file: /root/vmdriver.te
       - pkg: selinux_pkgs
 
-{% elif grains['os'] != 'Debian' %}
+{% elif grains['os'] == 'Debian' %}
+
+/usr/bin/kvm:
+  file.replace:
+    - pattern: -enable-kvm \"\$@\"
+    - repl: "`[ \"$HYPERVISOR_TYPE\" != qemu ] && echo -enable-kvm` \"$@\""
+    - watch:
+      - pkg: vmdriver
+
+policycoreutils:
+  pkg.installed
+
+{# Note: Debian Jessie has polkit 0.105, which uses pkla format instead of js #}
+/etc/polkit-1/localauthority/50-local.d/org.libvirt.unix.manage.pkla:
+  file.managed:
+    - source: salt://vmdriver/files/org.libvirt.unix.manage.pkla
+    - user: root
+    - group: root
+    - template: jinja
+
+polkitd:
+  service:
+    - running
+    - watch:
+      - file: /etc/polkit-1/localauthority/50-local.d/org.libvirt.unix.manage.pkla
+
+{% else %}
 
 /etc/apparmor.d/libvirt/TEMPLATE:
   file.managed:
