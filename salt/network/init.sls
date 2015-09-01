@@ -49,3 +49,13 @@ isc-dhcp-server:
     - enable: True
     - reload: True
 
+{% if grains['os'] == 'Debian' %}
+{# For next reboot #}
+/etc/systemd/system/isc-dhcp-server.service.d/after_openvswitch.conf:
+  file.managed:
+    - source: salt://network/files/fix_dhcp_Debian.conf
+    - user: root
+    - group: root
+    - template: jinja
+    - makedirs: True
+{% endif %}
