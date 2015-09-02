@@ -67,13 +67,6 @@ vmdriver_semodule:
 
 {% elif grains['os'] == 'Debian' %}
 
-/usr/bin/kvm:
-  file.replace:
-    - pattern: -enable-kvm \"\$@\"
-    - repl: "`[ \"$HYPERVISOR_TYPE\" != qemu ] && echo -enable-kvm` \"$@\""
-    - watch:
-      - pkg: vmdriver
-
 policycoreutils:
   pkg.installed
 
