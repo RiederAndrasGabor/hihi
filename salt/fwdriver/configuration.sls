@@ -22,7 +22,7 @@ include:
     - user: root
     - group: root
     - template: jinja
-    - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall-init.service
+    - source: salt://fwdriver/files/firewall-init.service
 {% else %}
 /etc/init/firewall.conf:
   file.managed:
