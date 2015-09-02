@@ -8,7 +8,7 @@
     * Scientific Linux 7+
     * Oracle Linux 7+ --> work in progress
 * Debian Linux family:
-    * Debian linux 8+ --> work in progress
+    * Debian linux 8+
     * Ubuntu linux 14.04 LTS
     * Ubuntu linux 15.04+ --> work in progress
 
@@ -31,7 +31,7 @@ sudo yum install python-pip gcc vim git
 Install some important packages:
 ```bash
 sudo apt-get update
-sudo apt-get install python-pip git
+sudo apt-get install python-pip vim git
 ```
 
 ## Install Salt
@@ -85,7 +85,7 @@ Most used variables
 * **database**:
     * **password**: database user’s password
 * **amqp**:
-    * **password**: ampq user’s password
+    * **password**: amqp user’s password
     * **host**: amqp server IP - usually runs at localhost
 * **graphite**:
     * **password**: graphite user’s password
@@ -126,6 +126,7 @@ Other variables
     * vm_if: vm interface
     * vm_et: vm network
     * management_if: management interface
+    * reload_firewall_timeout: timeout for synchronous firewall reload
 * graphite:
     * user: graphite user
     * port: graphite server’s port
@@ -207,10 +208,10 @@ Finally, we can run the machine. Click on 'deploy' and start it. You can choose,
 
 ## Troubleshooting ##
 
-### Portal wont loaded
-Maybe port 443 closed. Check and open it.
+### Portal won't load
+Maybe port 443 is closed. Check and open it.
 
-### Portal wont loaded on Ubuntu 14.04
+### Portal won't load on Ubuntu 14.04
 ```bash
 sudo service nginx restart
 ```
