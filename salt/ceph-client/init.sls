@@ -1,7 +1,11 @@
 ceph-client:
   pkg.installed:
     - pkgs:
+      {% if grains['os_family'] == 'RedHat' %}
       - ceph
+      {% else %}
+      - ceph-fs-common
+      {% endif %}
     - require_in:
       - mount: /datastore
 
