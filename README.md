@@ -45,19 +45,6 @@ Open the salt minion configuration
 sudo mkdir -p /etc/salt
 ```
 
-```bash
-sudo sh -c "cat > sudo vim /etc/salt/minion" << END
-file_client: local
-
-file_roots:
-  base:
-    - /home/cloud/salt/salt
-
-pillar_roots:
-  base:
-    - /home/cloud/salt/pillar
-END
-```
 ## Get the installer
 Clone circle installer git repository into cloud home
 
@@ -136,6 +123,10 @@ Other variables
     * repo_revision: revision
 * vnc-driver:
     * repo_revision: revision
+* ceph:
+    * enabled: ceph is enabled
+    * server: addres of ceph monitor
+    * directory: this directory will be shared
 
 ## Install Circle
 Run the following installation command:
@@ -215,3 +206,11 @@ sudo service nginx restart
 ```bash
 sudo systemctl restart systemd-sysctl
 ```
+
+### Permission denied at VM starting, if i use CephFS on distro from Red Hat family
+Ceph has no support SeLinux, you should switch it to permissive mode.
+```bash
+sudo setenforce 0
+sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+```
+

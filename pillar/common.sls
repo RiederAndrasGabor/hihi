@@ -22,3 +22,8 @@ nfs:
   server: localhost
   network: 192.168.1.0/24
   directory: /datastore
+
+ceph:
+  enabled: false
+  server: localhost
+  directory: /
