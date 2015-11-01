@@ -20,29 +20,21 @@ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.n
 
 Install some important packages:
 ```bash
-sudo yum install python-pip gcc vim git
+sudo yum -y install python-pip gcc vim git
 ```
 
 ### Debian family
 
 Install some important packages:
 ```bash
-sudo apt-get update
-sudo apt-get install python-pip git
+sudo apt-get -y update
+sudo apt-get -y install python-pip git
 ```
 
 ## Install Salt
 
 ```bash
 sudo pip install salt==2014.7.1
-```
-
-
-## Configure salt
-Open the salt minion configuration
-
-```bash
-sudo mkdir -p /etc/salt
 ```
 
 ## Get the installer
@@ -125,14 +117,19 @@ Other variables
     * repo_revision: revision
 * ceph:
     * enabled: ceph is enabled
-    * server: addres of ceph monitor
+    * server: address of ceph monitor, 
+        you can add more monitor at the same time, 
+        int the following format:
+        **<server_ip1>[:port1][,<server_ip2>[:port2] ...]**
     * directory: this directory will be shared
+    * username: ceph cliet username
+    * keyfile_path: path of cephx keyfile
 
 ## Install Circle
 Run the following installation command:
 
 ```bash
-sudo salt-call state.sls allinone
+salt/install.sh allinone
 ```
 After this finished, you have to get "Failed: 0" message.
 If installer fails, please visit the [Troubleshooting](#troubleshooting) paragraph.

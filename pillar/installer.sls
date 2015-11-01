@@ -41,6 +41,10 @@
 #storagedriver:
 #  queue_name: cloud-6605
 
+#ceph:
+#  server: cloud-6660.vm.ik.bme.hu,cloud-6659.vm.ik.bme.hu
+#  keyfile_path: /home/cloud/secret.keyring
+  
 #fwdriver:
 #  queue_name: cloud-6605
 #  gateway: 10.0.255.254

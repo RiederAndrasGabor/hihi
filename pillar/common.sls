@@ -27,3 +27,5 @@ ceph:
   enabled: false
   server: localhost
   directory: /
+  username: admin
+  keyfile_path:
