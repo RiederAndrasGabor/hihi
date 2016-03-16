@@ -1,0 +1,16 @@
+
+module nginx 1.0;
+
+require {
+	type initrc_tmp_t;
+	type httpd_t;
+	type initrc_t;
+	class sock_file write;
+	class unix_stream_socket connectto;
+}
+
+#============= httpd_t ==============
+allow httpd_t initrc_t:unix_stream_socket connectto;
+
+#!!!! This avc is allowed in the current policy
+allow httpd_t initrc_tmp_t:sock_file write;
