@@ -5,12 +5,19 @@ nginx:
        - pkg: nginx
        - cmd: circlecert
        - file: nginxdefault
+       - file: nginx_home_permission
        {% if grains['os_family'] == 'RedHat' %}
        - file: nginxconf
        - cmd: nginx_no_private_temp
        {% endif %}
   pkg:
    - installed
+
+nginx_home_permission:
+  file.directory:
+    - name: /home/{{ pillar['user'] }}
+    - user: {{ pillar['user'] }}
+    - dir_mode: 711
 
 circlecert:
   cmd.run:
