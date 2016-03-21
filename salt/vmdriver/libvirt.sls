@@ -67,6 +67,13 @@ vmdriver_semodule:
 
 {% elif grains['os'] == 'Debian' %}
 
+/usr/bin/kvm:
+  file.replace:
+    - pattern: -enable-kvm
+    - repl: ""
+    - watch:
+      - pkg: vmdriver
+
 policycoreutils:
   pkg.installed
 
