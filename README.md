@@ -1,4 +1,4 @@
-# Circle Project - Salt Installer
+# CIRCLE Project - Salt Installer
 
 ## OS Support
 
@@ -6,11 +6,9 @@
     * Red Hat Enterprise Linux 7+
     * Cent OS 7+
     * Scientific Linux 7+
-    * Oracle Linux 7+ --> work in progress
 * Debian Linux family:
     * Debian linux 8+
     * Ubuntu linux 14.04 LTS
-    * Ubuntu linux 15.04+ --> work in progress
 
 ## Prerequisites
 
@@ -40,28 +38,6 @@ sudo apt-get install python-pip vim git
 sudo pip install salt==2014.7.1
 ```
 
-
-## Configure salt
-Open the salt minion configuration
-
-```bash
-sudo mkdir -p /etc/salt
-sudo vim /etc/salt/minion
-```
-
-Add these lines:
-
-```bash
-file_client: local
-
-file_roots:
-  base:
-    - /home/cloud/salt/salt
-
-pillar_roots:
-  base:
-    - /home/cloud/salt/pillar
-```
 ## Get the installer
 Clone circle installer git repository into cloud home
 
@@ -146,7 +122,7 @@ Other variables
 Run the following installation command:
 
 ```bash
-sudo salt-call state.sls allinone
+sudo salt-call state.sls allinone --local --file-root=/home/$USER/salt/salt --pillar-root=/home/$USER/salt/pillar
 ```
 After this finished, you have to get "Failed: 0" message.
 If installer fails, please visit the [Troubleshooting](#troubleshooting) paragraph.
@@ -210,6 +186,7 @@ Finally, we can run the machine. Click on 'deploy' and start it. You can choose,
 
 ### Portal won't load
 Maybe port 443 is closed. Check and open it.
+
 
 ### Portal won't load on Ubuntu 14.04
 ```bash

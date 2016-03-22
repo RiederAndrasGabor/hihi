@@ -5,11 +5,19 @@ nginx:
        - pkg: nginx
        - cmd: circlecert
        - file: nginxdefault
+       - file: nginx_home_permission
        {% if grains['os_family'] == 'RedHat' %}
        - file: nginxconf
+       - cmd: nginx_no_private_temp
        {% endif %}
   pkg:
    - installed
+
+nginx_home_permission:
+  file.directory:
+    - name: /home/{{ pillar['user'] }}
+    - user: {{ pillar['user'] }}
+    - dir_mode: 711
 
 circlecert:
   cmd.run:
@@ -22,17 +30,50 @@ circlecert:
     - creates: /etc/ssl/certs/circle.pem
 
 {% if grains['os_family'] == 'RedHat' %}
-nginx_selinux:
+nginx_selinux_pkgs:
   pkg.installed:
     - pkgs:
       - policycoreutils
       - policycoreutils-python
+
+nginx_httpd_can_network_connect:
   selinux.boolean:
     - name: httpd_can_network_connect
     - value: True
     - persist: True
     - require:
-      - pkg: nginx_selinux
+      - pkg: nginx_selinux_pkgs
+
+nginx_httpd_read_user_content:
+  selinux.boolean:
+    - name: httpd_read_user_content
+    - value: True
+    - persist: True
+    - require:
+      - pkg: nginx_selinux_pkgs
+
+/root/nginx.te:
+  file.managed:
+    - source: salt://manager/files/nginx.te
+    - template: jinja
+    - mode: 644
+
+nginx_semodule:
+  cmd.run:
+    - cwd: /root
+    - user: root
+    - name: checkmodule -M -m -o nginx.mod nginx.te; semodule_package -o nginx.pp -m nginx.mod; semodule -i nginx.pp
+    - unless: semodule -l |grep -qs ^nginx
+    - require:
+      - file: /root/nginx.te
+      - pkg: nginx_selinux_pkgs
+
+nginx_no_private_temp:
+  cmd.run:
+    - user: root
+    - name: sed -i "/PrivateTmp/d" /usr/lib/systemd/system/nginx.service
+    - require:
+      - pkg: nginx
 {% endif %}
 
 nginxdefault:
