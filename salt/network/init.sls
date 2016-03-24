@@ -45,6 +45,17 @@ fix_dhcp:
 {% endif %}
 
 isc-dhcp-server:
+  {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+  cmd.run:
+    - name: /bin/systemctl restart isc-dhcp-server
+    {% if grains['os_family'] == 'RedHat' %}
+    - watch:
+      - script: fix_dhcp
+    {% elif grains['os'] == 'Debian' %}
+    - watch:
+      - cmd: fix_dhcp_daemon_reload
+    {% endif %}
+  {% endif %}
   service:
     - running
     {% if grains['os_family'] == 'RedHat' %}
@@ -55,9 +66,13 @@ isc-dhcp-server:
     {% if grains['os_family'] == 'RedHat' %}
     - watch:
       - script: fix_dhcp
+    - require:
+      - cmd: isc-dhcp-server
     {% elif grains['os'] == 'Debian' %}
     - watch:
       - cmd: fix_dhcp_daemon_reload
+    - require:
+      - cmd: isc-dhcp-server
     {% endif %}
 
 {% if grains['os'] == 'Debian' %}
