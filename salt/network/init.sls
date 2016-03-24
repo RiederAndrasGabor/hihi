@@ -28,16 +28,20 @@ firewall2:
     - require:
       - network: vm
 
-salt://network/files/reload_firewall.sh:
+reload_firewall:
   cmd.script:
+    - name: salt://network/files/reload_firewall.sh
     - template: jinja
     - user: {{ pillar['user'] }}
     - require:
       - service: firewall2
 
 {% if grains['os_family'] == 'RedHat' %}
-salt://network/files/fix_dhcp.sh:
+fix_dhcp:
   cmd.script
+    - name: salt://network/files/fix_dhcp.sh
+    - require:
+      - script: reload_firewall
 {% endif %}
 
 isc-dhcp-server:
@@ -48,6 +52,13 @@ isc-dhcp-server:
     {% endif %}
     - enable: True
     - reload: True
+    {% if grains['os_family'] == 'RedHat' %}
+    - watch:
+      - script: fix_dhcp
+    {% elif grains['os'] == 'Debian' %}
+    - watch:
+      - cmd: fix_dhcp_daemon_reload
+    {% endif %}
 
 {% if grains['os'] == 'Debian' %}
 {# For next reboot #}
