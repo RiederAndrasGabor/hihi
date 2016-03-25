@@ -77,12 +77,15 @@ include:
     - source: salt://fwdriver/files/sudoers
 
 
-{% if grains['os_family'] == 'RedHat' %}
-
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 systemd-sysctl:
   service.running:
     - reload: True
+    - watch:
+      - file: /etc/sysctl.d/60-circle-firewall.conf
+{% endif %}
 
+{% if grains['os_family'] == 'RedHat' %}
 /root/firewall-init.te:
   file.managed:
     - source: salt://fwdriver/files/firewall-init.te
