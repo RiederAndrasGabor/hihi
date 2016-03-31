@@ -82,7 +82,6 @@ systemd-sysctl:
   cmd.run:
     - name: /bin/systemctl restart systemd-sysctl
   service.running:
-    - reload: True
     - watch:
       - file: /etc/sysctl.d/60-circle-firewall.conf
     - require:
