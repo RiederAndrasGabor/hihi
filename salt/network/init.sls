@@ -52,11 +52,20 @@ reload_firewall:
       {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
+net_config:
+  file.managed:
+    - name: /etc/sysconfig/network
+    - source: salt://network/files/network
+    - user: root
+    - group: root
+    - mode: 644
+
 fix_dhcp:
   cmd.script:
     - name: salt://network/files/fix_dhcp.sh
     - require:
       - cmd: reload_firewall
+      - file: net_config
 {% endif %}
 
 isc-dhcp-server:
