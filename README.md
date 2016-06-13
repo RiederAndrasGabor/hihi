@@ -7,6 +7,7 @@
     * Cent OS 7+
     * Scientific Linux 7+
 * Debian Linux family:
+    * Debian linux 8+
     * Ubuntu linux 14.04 LTS
 
 ## Prerequisites
@@ -60,7 +61,7 @@ Most used variables
 * **database**:
     * **password**: database user’s password
 * **amqp**:
-    * **password**: ampq user’s password
+    * **password**: amqp user’s password
     * **host**: amqp server IP - usually runs at localhost
 * **graphite**:
     * **password**: graphite user’s password
@@ -101,6 +102,7 @@ Other variables
     * vm_if: vm interface
     * vm_et: vm network
     * management_if: management interface
+    * reload_firewall_timeout: timeout for synchronous firewall reload
 * graphite:
     * user: graphite user
     * port: graphite server’s port
@@ -129,7 +131,7 @@ Other variables
 Run the following installation command:
 
 ```bash
-salt/install.sh allinone
+sudo salt-call state.sls allinone --local --file-root=/home/$USER/salt/salt --pillar-root=/home/$USER/salt/pillar
 ```
 After this finished, you have to get "Failed: 0" message.
 If installer fails, please visit the [Troubleshooting](#troubleshooting) paragraph.
@@ -191,10 +193,11 @@ Finally, we can run the machine. Click on 'deploy' and start it. You can choose,
 
 ## Troubleshooting ##
 
-### Portal won't loaded
-Maybe port 443 closed. Check and open it.
+### Portal won't load
+Maybe port 443 is closed. Check and open it.
 
-### Portal wont loaded on Ubuntu 14.04
+
+### Portal won't load on Ubuntu 14.04
 ```bash
 sudo service nginx restart
 ```

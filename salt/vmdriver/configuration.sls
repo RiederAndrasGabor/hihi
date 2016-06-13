@@ -9,9 +9,10 @@ include:
     - group: {{ pillar['user'] }}
     - mode: 700
 
-{% set service_dir = "/etc/systemd/system/" if grains['os_family'] == 'RedHat' else "/etc/init/" %}
+{% set service_dir = "/etc/systemd/system/" if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' else "/etc/init/" %}
 {% set service_files = (("vmcelery@.service", "netcelery@.service", "node.service")
-                        if grains['os_family'] == 'RedHat' else
+                        if grains['os_family'] == 'RedHat' 
+                        or grains['os'] == 'Debian' else
                         ("vmcelery.conf", "netcelery.conf", "node.conf")) %}
 
 {% for file in service_files %}

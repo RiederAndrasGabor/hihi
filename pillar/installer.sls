@@ -34,7 +34,7 @@
 
 #nfs:
 #  enabled: true
-#  server: 10.0.0.115 
+#  server: 10.0.0.115
 #  network: 192.168.1.0/24
 #  directory: /datastore
 

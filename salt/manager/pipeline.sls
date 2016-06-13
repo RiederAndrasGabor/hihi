@@ -1,10 +1,10 @@
-{% if grains['os'] == 'Ubuntu' %}
+{% if grains['os'] == 'Ubuntu' or grains['os'] == 'Debian' %}
 nodejs-legacy:
   pkg.installed
 {% endif %}
 
 npm:
-  {% if grains['os'] == 'Ubuntu' %}
+  {% if grains['os'] == 'Ubuntu' or grains['os'] == 'Debian' %}
   pkg.installed:
     - require:
       - pkg: nodejs-legacy

@@ -9,7 +9,7 @@ include:
     - group: {{ pillar['fwdriver']['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' %} 
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %} 
 /etc/systemd/system/firewall.service:
   file.managed:
     - user: root
@@ -22,7 +22,7 @@ include:
     - user: root
     - group: root
     - template: jinja
-    - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall-init.service
+    - source: salt://fwdriver/files/firewall-init.service
 {% else %}
 /etc/init/firewall.conf:
   file.managed:
@@ -55,7 +55,7 @@ include:
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
-{% if grains['os_family'] != 'RedHat' %}
+{% if grains['os_family'] != 'RedHat' and grains['os'] != 'Debian' %}
 /etc/init.d/isc-dhcp-server:
   file.symlink:
     - target: /lib/init/upstart-job
@@ -77,12 +77,18 @@ include:
     - source: salt://fwdriver/files/sudoers
 
 
-{% if grains['os_family'] == 'RedHat' %}
-
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 systemd-sysctl:
+  cmd.run:
+    - name: /bin/systemctl restart systemd-sysctl
   service.running:
-    - reload: True
+    - watch:
+      - file: /etc/sysctl.d/60-circle-firewall.conf
+    - require:
+      - cmd: systemd-sysctl
+{% endif %}
 
+{% if grains['os_family'] == 'RedHat' %}
 /root/firewall-init.te:
   file.managed:
     - source: salt://fwdriver/files/firewall-init.te

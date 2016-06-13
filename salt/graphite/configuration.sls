@@ -17,7 +17,7 @@ requirements:
       - require:
         - user: {{ pillar['graphite']['user'] }}
   
-{% if grains['os_family'] == 'RedHat' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 
 /etc/systemd/system/graphite.service:
   file.managed:

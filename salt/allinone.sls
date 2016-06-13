@@ -1,4 +1,5 @@
 include:
+  - profile
   - agentdriver
   - manager
   - graphite

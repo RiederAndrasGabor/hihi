@@ -1,0 +1,7 @@
+[Allow cloud libvirt management permissions]
+Identity=unix-user:cloud
+Action=org.libvirt.unix.manage;org.libvirt.unix.monitor
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+{# TODO: change 'cloud' to ? #}

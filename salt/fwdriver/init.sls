@@ -18,7 +18,10 @@ firewall:
       - python-dev
       - libmemcached-dev
       - openvswitch-switch
+      {% if grains['os'] != 'Debian' %}
+      {# No such package in Debian Jessie! #}
       - openvswitch-controller
+      {% endif %}
       - isc-dhcp-server
       {% endif %}
       - git
