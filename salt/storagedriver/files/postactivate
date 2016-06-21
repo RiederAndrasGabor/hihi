@@ -1,3 +1,11 @@
 export AMQP_URI=amqp://{{ pillar['amqp']['user'] }}:{{ pillar['amqp']['password'] }}@{{ pillar['amqp']['host'] }}:{{ pillar['amqp']['port'] }}/{{ pillar['amqp']['vhost'] }}
 export CACHE_URI={{ pillar['cache'] }}
-
+{% if pillar['ceph']['config_path'] %}
+export CEPH_CONFIG="{{ pillar['ceph']['config_path'] }}"
+{% endif %}
+{% if pillar['ceph']['keyfile_path'] %}
+export CEPH_KEYRING="{{ pillar['ceph']['keyfile_path'] }}"
+{% endif %}
+{% if pillar['ceph']['timeout'] %}
+export CEPH_TIMEOUT="{{ pillar['ceph']['timeout'] }}"
+{% endif %}

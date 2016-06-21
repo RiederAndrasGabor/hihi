@@ -1,0 +1,26 @@
+[ceph]
+name=Ceph packages for $basearch
+baseurl={{ pillar["ceph"]["repo_url"] }}/rpm-{{ pillar["ceph"]["release"] }}/el7/$basearch
+enabled=1
+priority=2
+gpgcheck=1
+type=rpm-md
+gpgkey={{ pillar["ceph"]["repo_keys_url"] }}
+
+[ceph-noarch]
+name=Ceph noarch packages
+baseurl={{ pillar["ceph"]["repo_url"] }}/rpm-{{ pillar["ceph"]["release"] }}/el7/noarch
+enabled=1
+priority=2
+gpgcheck=1
+type=rpm-md
+gpgkey={{ pillar["ceph"]["repo_keys_url"] }}
+
+[ceph-source]
+name=Ceph source packages
+baseurl={{ pillar["ceph"]["repo_url"] }}/rpm-{{ pillar["ceph"]["release"] }}/el7/SRPMS
+enabled=0
+priority=2
+gpgcheck=1
+type=rpm-md
+gpgkey={{ pillar["ceph"]["repo_keys_url"] }}

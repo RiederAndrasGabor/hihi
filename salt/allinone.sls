@@ -4,6 +4,7 @@ include:
   - manager
   - graphite
   - monitor-client
+  - ceph
   - storagedriver
   - vmdriver
   - vncproxy

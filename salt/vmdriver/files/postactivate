@@ -1,6 +1,17 @@
 export AMQP_URI=amqp://{{ pillar['amqp']['user'] }}:{{ pillar['amqp']['password'] }}@{{ pillar['amqp']['host'] }}:{{ pillar['amqp']['port'] }}/{{ pillar['amqp']['vhost'] }}
 export CACHE_URI={{ pillar['cache'] }}
 export LIBVIRT_URI=qemu:///system
-export HYPERVISOR_TYPE=kvm
+export HYPERVISOR_TYPE="{{ pillar['vmdriver']['hypervisor_type'] }}"
 export NATIVE_OVS=True
-
+{% if pillar['ceph']['config_path'] %}
+export CEPH_CONFIG="{{ pillar['ceph']['config_path'] }}"
+{% endif %}
+{% if pillar['ceph']['keyfile_path'] %}
+export CEPH_KEYRING="{{ pillar['ceph']['keyfile_path'] }}"
+{% endif %}
+{% if pillar['ceph']['timeout'] %}
+export CEPH_TIMEOUT="{{ pillar['ceph']['timeout'] }}"
+{% endif %}
+{% if pillar['vmdriver']['dump_size_limit'] %}
+export DUMP_SIZE_LIMIT="{{ pillar['vmdriver']['dump_size_limit'] }}"
+{% endif %}
