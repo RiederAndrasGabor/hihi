@@ -20,14 +20,16 @@ rabbitmq_user:
     - password: {{ pillar['amqp']['password'] }}
     - require:
       - service: rabbitmq-server
+      - rabbitmq_vhost: virtual_host
+    - perms:
+      - {{ pillar['amqp']['vhost']}}:
+        - .*
+        - .*
+        - .*
 
 virtual_host:
   rabbitmq_vhost.present:
     - name: {{ pillar['amqp']['vhost']}}
-    - user: {{ pillar['amqp']['user'] }}
-    - conf: .*
-    - write: .*
-    - read: .*
     - require:
       - service: rabbitmq-server
 
