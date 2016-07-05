@@ -1,5 +1,5 @@
 include:
-  - openvswitch
+  - network
 
 /home/{{ pillar['user'] }}/.virtualenvs/vmdriver/bin/postactivate:
   file.managed:
@@ -23,11 +23,6 @@ include:
     - template: jinja
     - source: file:///home/{{ pillar['user'] }}/vmdriver/miscellaneous/{{ file }}
 {% endfor %}
-
-ovs-bridge:
-  cmd.run:
-    - name: ovs-vsctl add-br cloud
-    - unless: ovs-vsctl list-br | grep "^cloud$"
 
 /etc/sudoers.d/netdriver:
   file.managed:

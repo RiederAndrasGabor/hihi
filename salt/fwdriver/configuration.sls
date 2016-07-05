@@ -1,5 +1,5 @@
 include:
-  - openvswitch
+  - network
 
 /home/{{ pillar['fwdriver']['user'] }}/.virtualenvs/fw/bin/postactivate:
   file.managed:
@@ -95,6 +95,12 @@ systemd-sysctl:
     - template: jinja
     - mode: 644
 
+firewall-selinux_pkgs:
+  pkg.installed:
+    - pkgs:
+      - policycoreutils
+      - policycoreutils-python
+
 firewall-init_semodule:
   cmd.run:
     - cwd: /root
@@ -103,6 +109,6 @@ firewall-init_semodule:
     - unless: semodule -l |grep -qs ^firewall-init
     - require:
       - file: /root/firewall-init.te
-
+      - pkg: firewall-selinux_pkgs
 {% endif %}
 

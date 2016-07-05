@@ -2,6 +2,7 @@ include:
   - fwdriver.gitrepo
   - fwdriver.virtualenv
   - fwdriver.configuration
+  - fwdriver.network
 
 disable_os_firewall:
   cmd.run:
@@ -58,14 +59,3 @@ firewall:
 firewall-init:
   service:
     - enabled
-
-{# TODO: standalone firewall mode #}
-{% if pillar['fwdriver']['open_ports'] %}
-salt://fwdriver/files/open_ports.sh:
-  cmd.script:
-    - template: jinja
-    - user: {{ pillar['user'] }}
-    - require:
-      - service: firewall
-{% endif %}
-
