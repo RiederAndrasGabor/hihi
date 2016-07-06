@@ -1,3 +1,11 @@
+bind-utils:  # for salt.states.openvswitch_port module
+  pkg.installed:
+    {% if grains['os_family'] == "RedHat" %}
+    - name: bind-utils
+    {% else %}
+    - name: dnsutils
+    {% endif %}
+
 {% if grains['os_family'] == "RedHat" %}
 openvswitch:
   pkg.installed:

@@ -6,6 +6,17 @@ ovs-bridge:
   openvswitch_bridge.present:
     - name: cloud
 
+circle-vxlan:
+  openvswitch_port.present:
+    - bridge: cloud
+    - type: vxlan
+    - id: 42
+    - remote: 239.1.1.1
+    - dst_port: 4789
+    - require:
+      - openvswitch_bridge: ovs-bridge
+      - pkg: bind-utils
+
 {% if grains['os_family'] == 'RedHat' %}
 net_config:
   file.managed:
