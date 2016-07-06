@@ -1,6 +1,6 @@
 include:
   - openvswitch
-
+  - network.configuration
 
 ovs-bridge:
   openvswitch_bridge.present:

@@ -30,3 +30,6 @@ ADDRULE="python /home/{{ pillar['user'] }}/circle/circle/manage.py add_rule"
 # NFS server ports
 {{ open_ports(pillar['nfs_server_ports']) }}
 
+# VXLAN port
+{% set vxlan_port = (pillar["network"]["vxlan_port"], ) %}
+{{ open_ports(vxlan_port) }}
