@@ -92,14 +92,14 @@ memcached:
 {% if pillar['fwdriver']['open_ports'] %}
 open_ports:
   cmd.script:
-    - name: salt://fwdriver/files/open_ports.sh
+    - name: salt://manager/files/open_ports.sh
     - template: jinja
     - user: {{ pillar['user'] }}
 {% endif %}
 
 reload_firewall:
   cmd.script:
-    - name: salt://network/files/reload_firewall.sh
+    - name: salt://manager/files/reload_firewall.sh
     - template: jinja
     - user: {{ pillar['user'] }}
     {% if pillar['fwdriver']['open_ports'] %}
