@@ -11,5 +11,6 @@ base:
     - firewall
     - manager
     - common
+    - network
     - installer
     - ports
