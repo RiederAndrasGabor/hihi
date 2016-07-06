@@ -15,6 +15,10 @@ disable_os_firewall:
     {% endif %}
 
 firewall:
+  service.running:
+    - require:
+      - network: vm
+      - pkg: firewall
   pkg.installed:
     - pkgs:
       {% if grains['os_family'] == 'RedHat' %}

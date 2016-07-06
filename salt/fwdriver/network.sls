@@ -21,6 +21,9 @@ vm:
     - require:
       - cmd: ovs-if
 
+
+{# -- DHCP server configuration -- #}
+
 {% if grains['os'] == 'Debian' %}
 symlink_dhcpd:
   file.symlink:
@@ -32,13 +35,6 @@ symlink_dhcpd:
     - require:
       - file: symlink_dhcpd
 {% endif %}
-
-firewall2:
-  service:
-    - name: firewall
-    - running
-    - require:
-      - network: vm
 
 {% if grains['os_family'] == 'RedHat' %}
 fix_dhcp:
