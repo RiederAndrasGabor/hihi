@@ -3,7 +3,6 @@ include:
   - manager.gitrepo
   - manager.agentgit
   - manager.postgres
-  - manager.rabbitmq
   - manager.virtualenv
   - manager.configuration
   - manager.nginx
@@ -14,7 +13,6 @@ manager:
       - postgresql
       - git
       - ntp
-      - rabbitmq-server
       - memcached
       - gettext
       - wget

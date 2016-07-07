@@ -1,5 +1,4 @@
 include:
-  - graphite.rabbitmq
   - graphite.virtualenv
   - graphite.configuration
 

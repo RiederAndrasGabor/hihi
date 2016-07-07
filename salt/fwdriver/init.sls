@@ -3,6 +3,8 @@ include:
   - fwdriver.virtualenv
   - fwdriver.configuration
   - fwdriver.network
+  - fwdriver.rabbitmq
+
 
 disable_os_firewall:
   cmd.run:
@@ -45,6 +47,7 @@ firewall:
       - ntp
       - iptables
       - ipset
+      - rabbitmq-server
     - require:
       - user: {{ pillar['fwdriver']['user'] }}
     - require_in:
