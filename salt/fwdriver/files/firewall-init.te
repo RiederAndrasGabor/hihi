@@ -1,0 +1,22 @@
+
+module firewall-init 1.0;
+
+require {
+        type ifconfig_t;
+        type ifconfig_var_run_t;
+        type virtio_device_t;
+        type root_t;
+        class dir mounton;
+        class chr_file { read write };
+}
+
+#============= ifconfig_t ==============
+
+#!!!! This avc is allowed in the current policy
+allow ifconfig_t ifconfig_var_run_t:dir mounton;
+
+#!!!! This avc is allowed in the current policy
+allow ifconfig_t root_t:dir mounton;
+
+#!!!! This avc is allowed in the current policy
+allow ifconfig_t virtio_device_t:chr_file { read write };

@@ -10,13 +10,14 @@ postactivate:
 requirements:  
   file.managed:
       - name: /home/{{ pillar['graphite']['user'] }}/requirements.txt
+      - template: jinja
       - source: salt://graphite/files/requirements.txt
       - user: {{ pillar['graphite']['user'] }}
       - group: {{ pillar['graphite']['user'] }}
       - require:
         - user: {{ pillar['graphite']['user'] }}
   
-{% if grains['os_family'] == 'RedHat' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 
 /etc/systemd/system/graphite.service:
   file.managed:

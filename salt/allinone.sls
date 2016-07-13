@@ -1,7 +1,8 @@
 include:
+  - profile
   - agentdriver
-  - graphite
   - manager
+  - graphite
   - monitor-client
   - storagedriver
   - vmdriver

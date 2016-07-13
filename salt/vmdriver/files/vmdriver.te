@@ -1,13 +1,22 @@
 
-module vmdriver 1.0;
+module vmdriver 1.1;
 
 require {
 	type virt_var_lib_t;
 	type svirt_tcg_t;
+	type svirt_t;
+	type default_t;
 	class sock_file { create unlink };
 	class dir { write remove_name add_name };
+	class lnk_file read;
 }
 
 #============= svirt_tcg_t ==============
 allow svirt_tcg_t virt_var_lib_t:dir { write remove_name add_name };
 allow svirt_tcg_t virt_var_lib_t:sock_file { create unlink };
+
+#============= svirt_t ==============
+allow svirt_t virt_var_lib_t:dir { write add_name };
+allow svirt_t virt_var_lib_t:sock_file create;
+allow svirt_t default_t:lnk_file read;
+

@@ -1,7 +1,11 @@
 nfs-client:
   pkg.installed:
     - pkgs:
+      {% if grains['os_family'] == 'RedHat' %}
+      - nfs-utils
+      {% else %}
       - nfs-common
+      {% endif %}
     - require_in:
       - mount: /datastore
 

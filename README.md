@@ -1,34 +1,43 @@
+# CIRCLE Project - Salt Installer
 
-# Circle Project Salt Installer
+## OS Support
+
+* Red Hat Linux family:
+    * Red Hat Enterprise Linux 7+
+    * Cent OS 7+
+    * Scientific Linux 7+
+* Debian Linux family:
+    * Debian linux 8+
+    * Ubuntu linux 14.04 LTS
+
+## Prerequisites
+
+### Red Hat family
+
+Install EPEL repository (if the link is broken, please contact us):
+```bash
+sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+```
+
+Install some important packages:
+```bash
+sudo yum install python-pip gcc vim git
+```
+
+### Debian family
+
+Install some important packages:
+```bash
+sudo apt-get update
+sudo apt-get install python-pip vim git
+```
 
 ## Install Salt
 
 ```bash
-sudo add-apt-repository ppa:saltstack/salt
-sudo apt-get update
-sudo apt-get install salt-minion
+sudo pip install salt==2014.7.1
 ```
 
-## Configure salt
-Open the salt minion configuration
-
-```bash
-sudo vim /etc/salt/minion
-```
-
-Add these lines:
-
-```bash
-file_client: local
-
-file_roots:
-  base:
-    - /home/cloud/salt/salt
-
-pillar_roots:
-  base:
-    - /home/cloud/salt/pillar
-```
 ## Get the installer
 Clone circle installer git repository into cloud home
 
@@ -38,95 +47,95 @@ git clone https://git.ik.bme.hu/circle/salt.git
 
 ## Change variables
 Modify installer.sls file
-
 ```
-sudo vim salt/pillar/installer.sls
+vim salt/pillar/installer.sls
 ```
 
 Most used variables
 -------------------
-* user: user who will install the software
-* proxy_secret: proxy secret key TODO
-* secret_key: secret key TODO
-* time zone: the server's time zone, format is region/city
-* deployment_type: local or ? TODO
+* **proxy_secret**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
+* **secret_key**: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
+* **deployment_type**: local (development) or production
 * **admin_user**: user name to login in as admin on the site
 * **admin_pass**: password to login in as admin on the site
-* database:
-   * name: django database's name
-   * user: database user
-   * password: database user's password
-* amqp:
-   * user: amqp user
-   * password: ampq user's password
-   * host: amqp server IP - usually runs at localhost
-   * port: amqp server's port
-   * vhost: virtual host - specifies the namespace for entities (exchanges and queues) referred to by the protocol
-* graphite:
-   * user: graphite user
-   * password: graphite user's password
-   * host: graphite server IP - usually runs at localhost
-   * port: graphite server's port
-   * vhost: TODO
-   * queue: TODO
-   * secret_key: graphite's secret key
-* cache: cache url - usually pylibmc://127.0.0.1:11211/
-* nfs:
-   * enabled: nfs is enabled
-   * server: nfs server's hostname
-   * network: nfs server's network to access files
-   * directory: this directory will be shared
-* storagedriver:
-   * queue_name: TODO
-* fwdriver:
-   * queue_name: the server's hostname
-   * gateway: the server's gateway
-   * EXTERNAL_Net: the server's network
-   * external_if: the server's network interface
-   * trunk_if: trunk interface TODO
-   * management_if: TODO
+* **database**:
+    * **password**: database user’s password
+* **amqp**:
+    * **password**: amqp user’s password
+    * **host**: amqp server IP - usually runs at localhost
+* **graphite**:
+    * **password**: graphite user’s password
+    * **host**: graphite server IP - usually runs at localhost
+* **nfs**:
+    * **enabled**: nfs is enabled
+    * **server**: nfs server’s hostname
+    * **network**: nfs server’s network to access files
+    * **directory**: this directory will be shared
+* **storagedriver**:
+    * **queue_name**: the server’s hostname
+* **fwdriver**:
+    * **queue_name**: the server’s hostname
+    * **gateway**: the server’s gateway
+    * **external_net**: the server’s network
+    * **external_if**: the server’s network interface
 
 Other variables
 ---------------
+
+* user: user who will install the software
+* time zone: the server’s time zone, format is region/city
+* amqp:
+    * user: amqp user
+    * port: amqp server’s port
+    * vhost: virtual host - specifies the namespace for entities (exchanges and queues) referred to by the protocol
 * agent:
-   * repo_name: the agent repository's name
-   * repo_revision: revision
+    * repo_revision: revision
 * agentdriver:
-   * repo_name: the agentdriver repository's name
-   * repo_revision: revision
+    * repo_revision: revision
+* cache: cache url - usually pylibmc://127.0.0.1:11211/
+* database:
+    * name: django database’s name
+    * user: database user
 * fwdriver:
-   * repo_name: the fwdriver repository's name
-   * repo_revision: revision
-   * user: fwdriver user name
-   * vm_if: vm interface
-   * vm_et: vm network
+    * repo_revision: revision
+    * user: fwdriver user name
+    * vm_if: vm interface
+    * vm_et: vm network
+    * management_if: management interface
+    * reload_firewall_timeout: timeout for synchronous firewall reload
+* graphite:
+    * user: graphite user
+    * port: graphite server’s port
+    * secret_key: graphite’s secret key
 * manager:
-   * repo_name: the manager repository's name
-   * repo_revision: revision
+    * repo_revision: revision
 * monitor-client:
-   * repo_name: the monitor-client repository's name
-   * repo_revision: revision
+    * repo_revision: revision
 * storage-driver:
-   * repo_name: the storage-driver repository's name
-   * repo_revision: revision
+    * repo_revision: revision
 * vm-driver:
-   * repo_name: the vm-driver repository's name
-   * repo_revision: revision
+    * repo_revision: revision
 * vnc-driver:
-   * repo_name: the vnc-driver repository's name
-   * repo_revision: revision
+    * repo_revision: revision
 
 ## Install Circle
 Run the following installation command:
 
 ```bash
-sudo salt-call state.sls allinone
+sudo salt-call state.sls allinone --local --file-root=/home/$USER/salt/salt --pillar-root=/home/$USER/salt/pillar
 ```
+After this finished, you have to get "Failed: 0" message.
+If installer fails, please visit the [Troubleshooting](#troubleshooting) paragraph.
 
-After install, delete agent.conf file:
+After install, delete agent.conf or agent.service file:
 
+If you have upstart:
 ```bash
-sudo rm /etc/init/agent.conf
+sudo rm -f /etc/init/agent.conf
+```
+Or if you have systemd:
+```bash
+sudo rm -f /etc/systemd/system/agent.service
 ```
 
 ## Quickstart - Standalone Node
@@ -172,3 +181,19 @@ To install an OS, we can use ISO images, to boot from. Click on 'download disk' 
 Finally, we can run the machine. Click on 'deploy' and start it. You can choose, on which node do you want to run.
 
 ![ubuntu 14.04](_static/images/ubuntu.png)
+
+## Troubleshooting ##
+
+### Portal won't load
+Maybe port 443 is closed. Check and open it.
+
+
+### Portal won't load on Ubuntu 14.04
+```bash
+sudo service nginx restart
+```
+
+### Cannot reach the internet on VM-s on distro from Red Hat family
+```bash
+sudo systemctl restart systemd-sysctl
+```
