@@ -61,7 +61,7 @@ manager:
     - enable: True
     - watch:
       - file: manager_postactivate
-      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
       - file: /etc/systemd/system/manager.service
       - file: /etc/systemd/system/managercelery@.service
       {% else %}

@@ -18,7 +18,6 @@ virtualenv_manager:
     - name: /home/{{ pillar['user'] }}/.virtualenvs/circle
     - requirements: /home/{{ pillar['user'] }}/circle/requirements/{{ pillar['deployment_type'] }}.txt
     - user: {{ pillar['user'] }}
-    - cwd: /home/{{ pillar['user'] }}/circle/
     - no_chown: true
     - require:
       - git: gitrepo

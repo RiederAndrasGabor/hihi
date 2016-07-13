@@ -8,7 +8,7 @@ manager_postactivate:
 
 portal.conf:
   file.managed:
-    {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+    {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
     - name: /etc/systemd/system/portal.service
     {% else %}
     - name: /etc/init/portal.conf
@@ -16,7 +16,7 @@ portal.conf:
     - user: root
     - group: root
     - template: jinja
-    {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+    {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 
     {% if pillar['deployment_type'] == 'production' %}
     - source: file:///home/{{ pillar['user'] }}/circle/miscellaneous/portal-uwsgi.service
@@ -34,7 +34,7 @@ portal.conf:
 
     {% endif %}
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 /etc/systemd/system/manager.service:
   file.managed:
     - user: root
