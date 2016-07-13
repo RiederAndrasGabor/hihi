@@ -21,18 +21,6 @@ vm:
     - require:
       - cmd: ovs-if
 
-{% if grains['os'] == 'Debian' %}
-symlink_dhcpd:
-  file.symlink:
-    - name: /etc/init.d/dhcpd
-    - target: /etc/init.d/isc-dhcp-server
-    - force: True
-  cmd.run:
-    - name: /bin/systemctl daemon-reload
-    - require:
-      - file: symlink_dhcpd
-{% endif %}
-
 firewall2:
   service:
     - name: firewall
@@ -69,13 +57,13 @@ fix_dhcp:
 {% endif %}
 
 isc-dhcp-server:
-  {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+  {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
   cmd.run:
     - name: /bin/systemctl restart dhcpd
     {% if grains['os_family'] == 'RedHat' %}
     - watch:
       - cmd: fix_dhcp
-    {% elif grains['os'] == 'Debian' %}
+    {% elif grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
     - watch:
       - cmd: fix_dhcp_daemon_reload
     {% endif %}
@@ -85,17 +73,17 @@ isc-dhcp-server:
     {% if grains['os_family'] == 'RedHat' %}
     - watch:
       - cmd: fix_dhcp
-    {% elif grains['os'] == 'Debian' %}
+    {% elif grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
     - watch:
       - cmd: fix_dhcp_daemon_reload
     {% endif %}
-    {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+    {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
     - name: dhcpd
     - require:
       - cmd: isc-dhcp-server
     {% endif %}
 
-{% if grains['os'] == 'Debian' %}
+{% if grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 {# For next reboot #}
 after_openvswitch_conf:
   file.managed:
