@@ -6,7 +6,7 @@
     - group: {{ pillar['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 /etc/systemd/system/storagecelery@.service:
   file.managed:
     - user: root
