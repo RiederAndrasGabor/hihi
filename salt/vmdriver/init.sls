@@ -32,7 +32,7 @@ vmdriver:
       - libxslt1-dev
       - openvswitch-common
       - openvswitch-switch
-      {% if grains['os'] != 'Debian' %}
+      {% if grains['os'] != 'Debian' and grains['osfinger'] != 'Ubuntu-16.04' %}
       {# No such package in Debian Jessie! #}
       - openvswitch-controller
       {% endif %}
