@@ -9,7 +9,7 @@ include:
     - group: {{ pillar['fwdriver']['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %} 
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04'%}
 /etc/systemd/system/firewall.service:
   file.managed:
     - user: root
@@ -55,12 +55,37 @@ include:
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
-{% if grains['os_family'] != 'RedHat' and grains['os'] != 'Debian' %}
-/etc/init.d/isc-dhcp-server:
+symlink_dhcpd:
+  {% if grains['osfinger'] == 'Ubuntu-16.04' %}
   file.symlink:
+    - name: /etc/systemd/system/dhcpd.service
+    - target: /lib/systemd/system/isc-dhcp-server.service
+    - force: True
+    - require_in:
+      - service: isc-dhcp-server
+  cmd.run:
+    - name: /bin/systemctl daemon-reload
+    - require:
+      - file: symlink_dhcpd
+
+  {% elif grains['os'] == 'Debian' %}
+  file.symlink:
+    - name: /etc/init.d/dhcpd
+    - target: /etc/init.d/isc-dhcp-server
+    - force: True
+  cmd.run:
+    - name: /bin/systemctl daemon-reload
+    - require:
+      - file: symlink_dhcpd
+
+  {% elif grains['os_family'] != 'RedHat' %}
+  file.symlink:
+    - name: /etc/init.d/isc-dhcp-server
     - target: /lib/init/upstart-job
     - force: True
-{% endif %}
+    - require_in:
+      - service: isc-dhcp-server
+  {% endif %}
 
 /etc/sysctl.d/60-circle-firewall.conf:
   file.managed:
@@ -77,7 +102,7 @@ include:
     - source: salt://fwdriver/files/sudoers
 
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 systemd-sysctl:
   cmd.run:
     - name: /bin/systemctl restart systemd-sysctl
