@@ -159,15 +159,16 @@ apparmor:
 
 {% if grains['osfinger'] == 'Ubuntu-16.04' %}
 user_in_libvirtd_group:
-  user.present:
+  user:
+    - present
     - name: {{ pillar['user'] }}
+    - gid_from_name: True
+    - shell: /bin/bash
     - groups:
+      {% if grains['os_family'] == 'RedHat' %}
+      - wheel
+      {% else %}
+      - sudo
+      {% endif %}
       - libvirtd
-    - require:
-      - file: fix_user_sudoer
-
-fix_user_sudoer:
-  file.append:
-    - name: /etc/sudoers
-    - text: "{{ pillar['user'] }} ALL=(ALL) ALL"
 {% endif %}
