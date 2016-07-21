@@ -24,6 +24,9 @@ virtualenv_manager:
       {% if grains['os_family'] == 'RedHat' %}
       - environ: m2crypto_swig_env
       {% endif %}
+      {% if grains["osfinger"] == "Ubuntu-16.04" %}
+      - file: ubuntu_virtualenvwrapper
+      {% endif %}
 
 salt://manager/files/syncdb.sh:
   cmd.script:

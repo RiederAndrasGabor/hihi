@@ -50,7 +50,11 @@ vmdriver:
       - file: /etc/apparmor.d/libvirt/TEMPLATE
       - file: /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
       - file: /var/lib/libvirt/serial
+      {% if grains['osfinger'] == 'Ubuntu-16.04' %}
+      - service: libvirtd
+      {% else %}
       - service: libvirt-bin
+      {% endif %}
       {% endif %}
       - augeas: libvirtconf
       - git: gitrepo_vmdriver

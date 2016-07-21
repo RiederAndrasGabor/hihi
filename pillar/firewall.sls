@@ -1,6 +1,6 @@
 fwdriver:
   repo_name: https://git.ik.bme.hu/circle/fwdriver.git
-  repo_revision: master
+  repo_revision: ubuntu1604
 
   user: fw
 

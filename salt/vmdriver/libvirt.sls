@@ -13,9 +13,35 @@ libvirtconf:
 
 /etc/default/libvirt-bin:
   file.append:
+    {% if grains['osfinger'] == 'Ubuntu-16.04' %}
+    - text: libvirtd_opts="-l"
+    {% else %}
     - text: libvirtd_opts="-d -l"
+    {% endif %}
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['osfinger'] == 'Ubuntu-16.04' %}
+symlink_libvirtd:
+  file.symlink:
+    - name: /etc/systemd/system/libvirtd.service
+    - target: /lib/systemd/system/libvirt-bin.service
+    - force: True
+    - require_in:
+      - service: libvirtd
+    - require:
+      - cmd: kill_libvirt-bin
+  cmd.run:
+    - name: /bin/systemctl daemon-reload
+    - require:
+      - file: symlink_libvirtd
+
+kill_libvirt-bin:
+  cmd.run:
+    - name: /usr/sbin/service libvirt-bin force-stop
+    - require:
+      - pkg: vmdriver
+{% endif %}
+
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 libvirtd:
 {% else %}
 libvirt-bin:
@@ -25,6 +51,10 @@ libvirt-bin:
     - watch:
       - file: /etc/default/libvirt-bin
       - augeas: libvirtconf
+    {% if grains['osfinger'] == 'Ubuntu-16.04' %}
+    - require:
+      - user: user_in_libvirtd_group
+    {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
 /usr/bin/kvm:
@@ -67,13 +97,6 @@ vmdriver_semodule:
 
 {% elif grains['os'] == 'Debian' %}
 
-/usr/bin/kvm:
-  file.replace:
-    - pattern: -enable-kvm
-    - repl: ""
-    - watch:
-      - pkg: vmdriver
-
 policycoreutils:
   pkg.installed
 
@@ -114,6 +137,15 @@ apparmor:
       - file: /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
 {% endif %}
 
+{% if grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
+/usr/bin/kvm:
+  file.replace:
+    - pattern: -enable-kvm
+    - repl: ""
+    - watch:
+      - pkg: vmdriver
+{% endif %}
+
 /var/lib/libvirt/serial:
   file.directory:
     - makedirs: True
@@ -124,3 +156,18 @@ apparmor:
     {% endif %}
     - group: kvm
     - mode: 755
+
+{% if grains['osfinger'] == 'Ubuntu-16.04' %}
+user_in_libvirtd_group:
+  user.present:
+    - name: {{ pillar['user'] }}
+    - groups:
+      - libvirtd
+    - require:
+      - file: fix_user_sudoer
+
+fix_user_sudoer:
+  file.append:
+    - name: /etc/sudoers
+    - text: "{{ pillar['user'] }} ALL=(ALL) ALL"
+{% endif %}

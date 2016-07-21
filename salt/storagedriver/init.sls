@@ -31,6 +31,8 @@ storage:
   service:
     - running
     - enable: True
+    - require:
+      - virtualenv: virtualenv_storagedriver
     - watch:
       - pkg: storagedriver
       - sls: storagedriver.gitrepo
