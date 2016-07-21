@@ -12,9 +12,6 @@ virtualenv_graphite:
       - user: {{ pillar['graphite']['user'] }}
       - file: /home/{{ pillar['graphite']['user'] }}/requirements.txt
       - file: /opt/graphite
-      {% if grains["osfinger"] == "Ubuntu-16.04" %}
-      - file: ubuntu_virtualenvwrapper
-      {% endif %}
 
 global-site-packages:
   file.absent:

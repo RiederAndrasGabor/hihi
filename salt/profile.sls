@@ -1,4 +1,4 @@
-{% if grains['os']=='Debian' %}
+{% if grains['os']=='Debian' or grains['osfinger'] == 'Ubuntu-16.04' %}
 {# For non-interactive shells, virtualenvwrapper commands 
    ('workon' etc.) are not sourced automatically #}
 /etc/profile:

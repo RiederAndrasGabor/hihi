@@ -6,6 +6,3 @@ virtualenv_storagedriver:
     - no_chown: true
     - require:
       - pkg: storagedriver
-      {% if grains["osfinger"] == "Ubuntu-16.04" %}
-      - file: ubuntu_virtualenvwrapper
-      {% endif %}

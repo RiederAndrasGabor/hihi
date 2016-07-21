@@ -4,10 +4,6 @@ virtualenv_vmdriver:
     - requirements: /home/{{ pillar['user'] }}/vmdriver/requirements/production.txt
     - user: {{ pillar['user'] }}
     - no_chown: true
-    {% if grains["osfinger"] == "Ubuntu-16.04" %}
-    - require:
-      - file: ubuntu_virtualenvwrapper
-    {% endif %}
 
 {% set libvirt_dir = "/usr/lib64/python2.7/site-packages/" if grains['os_family'] == 'RedHat' else "/usr/lib/python2.7/dist-packages/" %}
 
