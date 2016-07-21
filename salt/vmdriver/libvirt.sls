@@ -171,4 +171,10 @@ user_in_libvirtd_group:
       - sudo
       {% endif %}
       - libvirtd
+    - require:
+      - group: libvirtd_group
+
+libvirtd_group:
+  group.present:
+    - name: libvirtd
 {% endif %}
