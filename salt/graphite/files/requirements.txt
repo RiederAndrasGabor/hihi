@@ -8,7 +8,7 @@ gunicorn
 pytz
 pyparsing
 whisper
-{% if grains['os_family'] != 'RedHat' %} 
-carbon==0.9.12 --install-option="--prefix=/opt/graphite" --install-option="--install-lib=/opt/graphite/lib"
+{% if grains['os_family'] != 'RedHat' %}
+carbon==0.9.12 {% if grains['osfinger'] == 'Ubuntu-16.04' %}--install-option="--prefix=/opt/graphite" --install-option="--install-lib=/opt/graphite/lib"{% endif %}
 {% endif %}
-graphite-web --install-option="--prefix=/opt/graphite" --install-option="--install-lib=/opt/graphite/webapp"
+graphite-web {% if grains['osfinger'] == 'Ubuntu-16.04' %}--install-option="--prefix=/opt/graphite" --install-option="--install-lib=/opt/graphite/webapp"{% endif %}
