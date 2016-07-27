@@ -55,8 +55,9 @@ include:
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
+
+{% if grains['osfinger'] == 'Ubuntu-16.04' %}
 symlink_dhcpd:
-  {% if grains['osfinger'] == 'Ubuntu-16.04' %}
   file.symlink:
     - name: /etc/systemd/system/dhcpd.service
     - target: /lib/systemd/system/isc-dhcp-server.service
@@ -68,7 +69,8 @@ symlink_dhcpd:
     - require:
       - file: symlink_dhcpd
 
-  {% elif grains['os'] == 'Debian' %}
+{% elif grains['os'] == 'Debian' %}
+symlink_dhcpd:
   file.symlink:
     - name: /etc/init.d/dhcpd
     - target: /etc/init.d/isc-dhcp-server
@@ -78,14 +80,15 @@ symlink_dhcpd:
     - require:
       - file: symlink_dhcpd
 
-  {% elif grains['os_family'] != 'RedHat' %}
+{% elif grains['os_family'] != 'RedHat' %}
+symlink_dhcpd:
   file.symlink:
     - name: /etc/init.d/isc-dhcp-server
     - target: /lib/init/upstart-job
     - force: True
     - require_in:
       - service: isc-dhcp-server
-  {% endif %}
+{% endif %}
 
 /etc/sysctl.d/60-circle-firewall.conf:
   file.managed:

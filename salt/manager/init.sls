@@ -1,9 +1,13 @@
+{% set amqp_islocal = (pillar['amqp']['host'] in ('localhost', '127.0.0.1')) %}
+
 include:
   - manager.pipeline
   - manager.gitrepo
   - manager.agentgit
   - manager.postgres
+  {% if amqp_islocal %}
   - manager.rabbitmq
+  {% endif %}
   - manager.virtualenv
   - manager.configuration
   - manager.nginx
@@ -15,7 +19,9 @@ manager:
       - git
       - python-pip
       - ntp
+      {% if amqp_islocal %}
       - rabbitmq-server
+      {% endif %}
       - memcached
       - gettext
       - wget

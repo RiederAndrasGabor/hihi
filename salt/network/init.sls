@@ -35,7 +35,7 @@ reload_firewall:
     - user: {{ pillar['user'] }}
     - require:
       - service: firewall2
-      {% if grains['os'] == 'Debian' %}
+      {% if grains['os'] == 'Debian' or grains['osfinger'] == 'Ubuntu-16.04'%}
       - cmd: symlink_dhcpd
       {% endif %}
 
