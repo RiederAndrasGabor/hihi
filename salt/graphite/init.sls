@@ -7,13 +7,14 @@ graphite:
   pkg.installed:
     - pkgs:
       - git
-      - python-pip
       - ntp
       {% if grains['os_family'] == 'RedHat' %}
+      - python2-pip
       - pycairo
       - python-devel
       - python-virtualenvwrapper
       {% else %}
+      - python-pip
       - python-cairo
       - python-dev
       - virtualenvwrapper

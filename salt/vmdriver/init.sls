@@ -8,12 +8,12 @@ vmdriver:
   pkg.installed:
     - pkgs:
       - git
-      - python-pip
       - python-augeas
       - ntp
       - wget
       - qemu-kvm
       {% if grains['os_family'] == 'RedHat' %}
+      - python2-pip
       - libmemcached-devel
       - libvirt
       - libvirt-daemon
@@ -26,6 +26,7 @@ vmdriver:
       - qemu-img
       - zlib-devel
       {% else %}
+      - python-pip
       - libmemcached-dev
       - libvirt-bin
       - libxml2-dev

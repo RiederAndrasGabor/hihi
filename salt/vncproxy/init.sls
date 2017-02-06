@@ -7,15 +7,16 @@ vncproxy:
   pkg.installed:
     - pkgs:
       - git
-      - python-pip
       - ntp
       - wget
       {% if grains['os_family'] == 'RedHat' %}
+      - python2-pip
       - libffi-devel
       - openssl-devel
       - python-devel
       - python-virtualenvwrapper
       {% else %}
+      - python-pip
       - libffi-dev
       - libssl-dev
       - python-dev

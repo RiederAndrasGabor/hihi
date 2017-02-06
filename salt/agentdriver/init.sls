@@ -7,10 +7,10 @@ agentdriver:
   pkg.installed:
     - pkgs:
       - git
-      - python-pip
       - ntp
       - incron
       {% if grains['os_family'] == 'RedHat' %}
+      - python2-pip
       - libmemcached-devel
       - python-devel
       - python-virtualenvwrapper
@@ -19,6 +19,7 @@ agentdriver:
       - libmemcached-dev
       - python-dev
       - virtualenvwrapper
+      - python-pip
       - zlib1g-dev
       {% endif %}
     - require_in:

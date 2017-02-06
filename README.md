@@ -21,7 +21,7 @@ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.n
 
 Install some important packages:
 ```bash
-sudo yum install python-pip gcc vim git
+sudo yum install python2-pip gcc vim git
 ```
 
 ### Debian family
