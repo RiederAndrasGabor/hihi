@@ -11,8 +11,9 @@ vmdriver:
       - python-augeas
       - ntp
       - wget
-      - qemu-kvm
       {% if grains['os_family'] == 'RedHat' %}
+      - centos-release-qemu-ev
+      - qemu-kvm-ev
       - python2-pip
       - libmemcached-devel
       - libvirt
@@ -26,6 +27,7 @@ vmdriver:
       - qemu-img
       - zlib-devel
       {% else %}
+      - qemu-kvm
       - python-pip
       - libmemcached-dev
       - libvirt-bin
