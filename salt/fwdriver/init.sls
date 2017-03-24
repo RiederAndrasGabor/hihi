@@ -11,6 +11,7 @@ firewall:
       - python-virtualenvwrapper
       - python-devel
       - libmemcached-devel
+      - python2-pip
       - dhcp
       {% else  %}
       - zlib1g-dev
@@ -18,6 +19,7 @@ firewall:
       - python-dev
       - libmemcached-dev
       - openvswitch-switch
+      - python-pip
       {% if grains['os'] != 'Debian' %}
       {# No such package in Debian Jessie! #}
       - openvswitch-controller
@@ -25,7 +27,6 @@ firewall:
       - isc-dhcp-server
       {% endif %}
       - git
-      - python-pip
       - ntp
       - iptables
       - ipset

@@ -8,15 +8,16 @@ storagedriver:
   pkg.installed:
     - pkgs:
       - git
-      - python-pip
       - ntp
       {% if grains['os_family'] == 'RedHat' %}
+      - python2-pip
       - libmemcached-devel
       - python-devel
       - python-virtualenvwrapper
       - qemu-img
       - zlib-devel
       {% else %}
+      - python-pip
       - libmemcached-dev
       - python-dev
       - qemu-utils

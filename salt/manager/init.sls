@@ -13,7 +13,6 @@ manager:
     - pkgs:
       - postgresql
       - git
-      - python-pip
       - ntp
       - rabbitmq-server
       - memcached
@@ -21,6 +20,7 @@ manager:
       - wget
       - swig
       {% if grains['os_family'] == 'RedHat' %}
+      - python2-pip
       - libffi-devel
       - openssl-devel
       - libmemcached-devel
@@ -32,6 +32,7 @@ manager:
       - python-devel
       - python-virtualenvwrapper
       {% else %}
+      - python-pip
       - libffi-dev
       - libssl-dev
       - libmemcached-dev
