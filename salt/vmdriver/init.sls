@@ -4,6 +4,13 @@ include:
   - vmdriver.virtualenv
   - vmdriver.configuration
 
+
+{% if grains['os_family'] == 'RedHat' %}
+ev_repo:
+  pkg.installed:
+    - name: centos-release-qemu-ev
+{% endif %}
+
 vmdriver:
   pkg.installed:
     - pkgs:
@@ -11,8 +18,8 @@ vmdriver:
       - python-augeas
       - ntp
       - wget
-      - qemu-kvm
       {% if grains['os_family'] == 'RedHat' %}
+      - qemu-kvm-ev
       - python2-pip
       - libmemcached-devel
       - libvirt
@@ -26,6 +33,7 @@ vmdriver:
       - qemu-img
       - zlib-devel
       {% else %}
+      - qemu-kvm
       - python-pip
       - libmemcached-dev
       - libvirt-bin
@@ -56,6 +64,10 @@ vmdriver:
       - augeas: libvirtconf
       - git: gitrepo_vmdriver
       - virtualenv: virtualenv_vmdriver
+    {% if grains['os_family'] == 'RedHat' %}
+    - require:
+       - pkg: ev_repo
+    {% endif %}
 
 agentdriver_service:
   service:
