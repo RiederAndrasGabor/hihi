@@ -1,4 +1,4 @@
 #!/bin/bash 
 source /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite/bin/activate;
 cd /opt/graphite/webapp/graphite/
-python manage.py syncdb --noinput
+PYTHONPATH=/opt/graphite/webapp django-admin.py syncdb --settings=graphite.settings --noinput
