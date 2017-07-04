@@ -11,4 +11,5 @@ whisper
 {% if grains['os_family'] != 'RedHat' %} 
 carbon==0.9.12
 {% endif %}
+scandir
 graphite-web
