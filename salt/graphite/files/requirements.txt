@@ -8,8 +8,6 @@ gunicorn
 pytz
 pyparsing
 whisper
-{% if grains['os_family'] != 'RedHat' %} 
-carbon==0.9.12
-{% endif %}
 scandir
+carbon==0.9.12
 graphite-web

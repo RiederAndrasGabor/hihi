@@ -1,8 +1,3 @@
-{% if grains['os_family'] == 'RedHat' %}
-python-carbon:
-  pkg.installed
-{% endif %}
-
 virtualenv_graphite:
   virtualenv.managed:
     - name: /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite
