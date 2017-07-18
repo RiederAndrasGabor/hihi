@@ -9,5 +9,5 @@ pytz
 pyparsing
 whisper
 scandir
-carbon==0.9.12
-graphite-web
+carbon==1.0.2
+graphite-web==1.0.2
