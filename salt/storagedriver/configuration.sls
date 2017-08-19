@@ -43,3 +43,13 @@
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
     - mode: 755
+
+# will not be needed in the future, with new gc
+/datastore/trash:
+  file.directory:
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+    - mode: 755
+    - require:
+      - file: /datastore
+
