@@ -13,6 +13,7 @@ graphite:
       - pycairo
       - python-devel
       - python-virtualenvwrapper
+      - dejavu-sans-fonts
       {% else %}
       - python-pip
       - python-cairo
