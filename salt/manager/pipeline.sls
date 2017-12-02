@@ -28,3 +28,4 @@ babel-preset-env:
     - dir: /home/{{ pillar['user'] }}/circle/circle
     - require:
       - pkg: npm
+      - git: gitrepo

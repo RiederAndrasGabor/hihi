@@ -55,8 +55,6 @@ manager:
       {% else %}
       - sudo
       {% endif %}
-     
-
   service:
     - running
     - enable: True
