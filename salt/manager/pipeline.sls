@@ -12,17 +12,19 @@ npm:
   pkg.installed
   {% endif %}
 
-bower:
+npm_packages:
   npm.installed:
+    - pkgs:
+      - bower
+      - less
+      - yuglify
+      - babel-cli
     - require:
       - pkg: npm
 
-less:
+babel-preset-env:
   npm.installed:
-    - require:
-      - pkg: npm
-
-yuglify:
-  npm.installed:
+    - user: {{ pillar['user'] }}
+    - dir: /home/{{ pillar['user'] }}/circle/circle
     - require:
       - pkg: npm

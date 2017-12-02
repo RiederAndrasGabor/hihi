@@ -1,3 +1,2 @@
-{{ pillar['user'] }}	ALL = (ALL) NOPASSWD: /usr/bin/ovs-ofctl, /usr/bin/ovs-vsctl, /sbin/ip link set *
+{{ pillar['user'] }}	ALL = (ALL) NOPASSWD: /usr/bin/ovs-ofctl, /usr/bin/ovs-vsctl, /sbin/ip link set *, /sbin/ip link add *
 Defaults: {{ pillar['user'] }} !requiretty
-
