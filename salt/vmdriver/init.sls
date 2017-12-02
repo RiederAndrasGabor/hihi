@@ -6,7 +6,7 @@ include:
 
 
 {% if grains['os_family'] == 'RedHat' %}
-ev_repo:
+ev_repo_for_vmdriver:
   pkg.installed:
     - name: centos-release-qemu-ev
 {% endif %}
@@ -30,7 +30,7 @@ vmdriver:
       - libxslt-devel
       - python-devel
       - python-virtualenvwrapper
-      - qemu-img
+      - qemu-img-ev
       - zlib-devel
       {% else %}
       - qemu-kvm
@@ -66,7 +66,7 @@ vmdriver:
       - virtualenv: virtualenv_vmdriver
     {% if grains['os_family'] == 'RedHat' %}
     - require:
-       - pkg: ev_repo
+      - pkg: ev_repo_for_vmdriver
     {% endif %}
 
 agentdriver_service:

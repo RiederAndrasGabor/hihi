@@ -4,6 +4,13 @@ include:
   - storagedriver.configuration
   - storagedriver.nfs-server 
 
+
+{% if grains['os_family'] == 'RedHat' %}
+ev_repo_for_storagedriver:
+  pkg.installed:
+    - name: centos-release-qemu-ev
+{% endif %}
+
 storagedriver:
   pkg.installed:
     - pkgs:
@@ -14,7 +21,7 @@ storagedriver:
       - libmemcached-devel
       - python-devel
       - python-virtualenvwrapper
-      - qemu-img
+      - qemu-img-ev
       - zlib-devel
       {% else %}
       - python-pip
@@ -27,6 +34,10 @@ storagedriver:
     - require_in:
       - git: gitrepo_storagedriver
       - virtualenv: virtualenv_storagedriver
+    {% if grains['os_family'] == 'RedHat' %}
+    - require:
+      - pkg: ev_repo_for_storagedriver
+    {% endif %}
 
 storage:
   service:
