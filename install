@@ -15,7 +15,7 @@ pip install -r $PREFIX/requirements.txt
 $PREFIX/kvm-ok > /dev/null
 retv=$?
 EXTRAPARAMS=""
-if [ $retv == 0 ]; then
+if [ $retv -eq 0 ]; then
     EXTRAPARAMS="--kvm-present"
 fi
 
