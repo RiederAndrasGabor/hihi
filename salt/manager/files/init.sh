@@ -7,7 +7,7 @@ source /home/{{ pillar['user'] }}/.virtualenvs/circle/bin/postactivate
 HOSTNAME=$(hostname -s)
 
 EXTRAPARAMS=""
-if [ "{{ pillar['vmdriver']['hypervisor_type'] }}" = "kvm"]; then
+if [ "{{ pillar['vmdriver']['hypervisor_type'] }}" = "kvm" ]; then
     EXTRAPARAMS="--kvm-present"
 fi
 
