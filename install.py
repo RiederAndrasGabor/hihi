@@ -78,11 +78,12 @@ def yaml_pretty_dump(data, file, **extra):
 
 def dump_errors(result):
     # Filter errors only
+    errors = {}
     for key, data in result.iteritems():
         if not data['result']:
-            del result[key]
+            errors[key] = data
     with open(join(PREFIX, 'errors.yml'), 'w') as f:
-        yaml_pretty_dump(result, f)
+        yaml_pretty_dump(errors, f)
 
 
 class KeyStore:
