@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ "$EUID" -ne 0 ]; then
+    RED_UNDERLINED='\033[4;31m'
+    NC='\033[0m'  # No Color
+    echo -e $RED_UNDERLINED"Please run as root or use sudo!"$NC
+    exit
+fi
+
+FULLPATH=$(readlink -m $0)
+PREFIX=$(dirname $FULLPATH)
+
+pip install -r $PREFIX/requirements.txt
+
+python $PREFIX/install.py
