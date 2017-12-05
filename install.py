@@ -10,6 +10,7 @@ import random
 import os
 import getpass
 from halo import Halo
+import argparse
 
 
 PREFIX = dirname(__file__)
@@ -111,8 +112,12 @@ class KeyStore:
             yaml.dump(self.data, f)
 
 
-KEYFILE = join(PREFIX, '.circlekeys')
+parser = argparse.ArgumentParser()
+parser.add_argument('--kvm-present', action='store_true',
+                    help='Installs with KVM hypervisor otherwise with QEMU.')
+args = parser.parse_args()
 
+KEYFILE = join(PREFIX, '.circlekeys')
 ks = KeyStore(KEYFILE)
 
 installer_sls = {
@@ -161,6 +166,9 @@ installer_sls = {
         'queue_name':  get_hostname(),
         'management_if': 'ethy',
         'trunk_if': 'linkb',
+    },
+    'vmdriver': {
+        'hypervisor_type': 'kvm' if args.kvm_present else 'qemu',
     },
 }
 

@@ -12,4 +12,11 @@ PREFIX=$(dirname $FULLPATH)
 
 pip install -r $PREFIX/requirements.txt
 
-python $PREFIX/install.py
+$PREFIX/kvm-ok > /dev/null
+retv=$?
+EXTRAPARAMS=""
+if [ $retv == 0 ]; then
+    EXTRAPARAMS="--kvm-present"
+fi
+
+python $PREFIX/install.py $EXTRAPARAMS
