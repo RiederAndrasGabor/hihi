@@ -1,0 +1,4 @@
+salt==2014.7.1
+netaddr==0.7.14
+netifaces==0.10.6
+halo==0.0.7

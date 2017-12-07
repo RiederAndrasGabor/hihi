@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ $(id -u) -ne 0 ]; then
+    RED_UNDERLINED='\033[4;31m'
+    NC='\033[0m'  # No Color
+    echo -e $RED_UNDERLINED"Please run as root or use sudo!"$NC
+    exit
+fi
+
+FULLPATH=$(readlink -m $0)
+PREFIX=$(dirname $FULLPATH)
+
+pip install -r $PREFIX/requirements.txt
+
+$PREFIX/kvm-ok > /dev/null
+retv=$?
+EXTRAPARAMS=""
+if [ $retv -eq 0 ]; then
+    EXTRAPARAMS="--kvm-present"
+fi
+
+python $PREFIX/install.py $EXTRAPARAMS
