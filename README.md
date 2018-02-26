@@ -35,7 +35,7 @@ sudo apt-get install python-pip vim git
 ## Install Salt
 
 ```bash
-sudo pip install salt==2014.7.1
+sudo pip install salt==2016.3.1
 ```
 
 ## Get the installer
