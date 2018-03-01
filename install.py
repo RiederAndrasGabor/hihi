@@ -9,7 +9,6 @@ import yaml
 import random
 import os
 import getpass
-from halo import Halo
 import argparse
 
 
@@ -190,9 +189,9 @@ opts['file_roots'] = {'base': [join(PREFIX, 'salt')]}
 opts['pillar_roots'] = {'base': [join(PREFIX, 'pillar')]}
 setup_console_logger(log_level='info')
 caller = salt.client.Caller(mopts=opts)
+
 # Run install with salt
-with Halo(text='Installing', spinner='dots'):
-    result = caller.function('state.sls', 'allinone', with_grains=True)
+result = caller.function('state.sls', 'allinone', with_grains=True)
 
 # Count errors and print to console
 error_num = 0
