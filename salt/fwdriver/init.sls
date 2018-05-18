@@ -37,7 +37,7 @@ firewall:
       - libmemcached-dev
       - openvswitch-switch
       - python-pip
-      {% if grains['os'] != 'Debian' %}
+      {% if grains['os'] != 'Debian' and grains['os'] != 'Ubuntu' and grains['oscodename'] != 'xenial' %}
       {# No such package in Debian Jessie! #}
       - openvswitch-controller
       {% endif %}
