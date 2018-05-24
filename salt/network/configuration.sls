@@ -1,4 +1,4 @@
-{% if pillar["deployment_mode"] == "node" %}
+{% if pillar["network"]["vxlan_base"] == True %}
 
 {% set vxlan_port =  pillar["network"]["vxlan_port"]["port"] %}
 {% set vxlan_proto = pillar["network"]["vxlan_port"]["proto"] %}

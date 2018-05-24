@@ -7,6 +7,7 @@ ovs-bridge:
     - name: cloud
 
 {% set net = pillar["network"] %}
+{% if net["vxlan_base"] == True %}
 circle-vxlan-if:
   cmd.run:
     - name: >
@@ -22,6 +23,7 @@ circle-vxlan:
       - openvswitch_bridge: ovs-bridge
       - pkg: bind-utils
       - cmd: circle-vxlan-if
+{% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
 net_config:
