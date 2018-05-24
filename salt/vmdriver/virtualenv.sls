@@ -9,7 +9,7 @@ virtualenv_vmdriver:
 
 {% set targets = { 'libvirtmod_qemu.so': 'libvirtmod_qemu.x86_64-linux-gnu.so',
                    'libvirtmod.so': 'libvirtmod.x86_64-linux-gnu.so'
-                 } if grains['os'] == 'Debian' else {} %}
+                 } if grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' else {} %}
 
 {% for file in ("libvirtmod_qemu.so", "libvirtmod.so", "libvirt_qemu.py", "libvirt.py", "libvirt_qemu.pyc", "libvirt.pyc") %}
 /home/{{ pillar['user'] }}/.virtualenvs/vmdriver/lib/python2.7/site-packages/{{ file }}:

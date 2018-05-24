@@ -13,7 +13,7 @@
     - user: root
     - group: root
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 /etc/systemd/system/agentdriver.service:
   file.managed:
     - user: root

@@ -13,7 +13,7 @@ vm:
     - pre_up_cmds:
       {% if grains['os_family'] == 'RedHat' %}
       - /bin/systemctl restart openvswitch
-      {% elif grains['os'] == 'Debian' %}
+      {% elif grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
       - /bin/systemctl restart openvswitch-switch
       {% else %}
       - /etc/init.d/openvswitch-switch restart
@@ -24,7 +24,7 @@ vm:
 
 {# -- DHCP server configuration -- #}
 
-{% if grains['os'] == 'Debian' %}
+{% if grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 symlink_dhcpd:
   file.symlink:
     - name: /etc/init.d/dhcpd
@@ -42,7 +42,7 @@ fix_dhcp:
     - name: salt://fwdriver/files/fix_dhcp.sh
 {% endif %}
 
-{% if grains['os'] == 'Debian' %}
+{% if grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 {# For next reboot #}
 after_openvswitch_conf:
   file.managed:

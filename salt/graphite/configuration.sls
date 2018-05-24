@@ -7,7 +7,7 @@ postactivate:
       - group: {{ pillar['graphite']['user'] }}
       - mode: 700
 
-requirements:  
+requirements:
   file.managed:
       - name: /home/{{ pillar['graphite']['user'] }}/requirements.txt
       - template: jinja
@@ -16,8 +16,8 @@ requirements:
       - group: {{ pillar['graphite']['user'] }}
       - require:
         - user: {{ pillar['graphite']['user'] }}
-  
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 
 /etc/systemd/system/graphite.service:
   file.managed:

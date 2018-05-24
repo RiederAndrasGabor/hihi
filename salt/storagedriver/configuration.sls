@@ -6,7 +6,7 @@
     - group: {{ pillar['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 /etc/systemd/system/storagecelery@.service:
   file.managed:
     - user: root
@@ -52,4 +52,3 @@
     - mode: 755
     - require:
       - file: /datastore
-

@@ -53,14 +53,14 @@ manager:
       {% else %}
       - sudo
       {% endif %}
-     
+
 
   service:
     - running
     - enable: True
     - watch:
       - file: manager_postactivate
-      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
       - file: /etc/systemd/system/manager.service
       - file: /etc/systemd/system/managercelery@.service
       {% else %}

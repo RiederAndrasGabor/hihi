@@ -9,7 +9,7 @@ include:
     - group: {{ pillar['fwdriver']['user'] }}
     - mode: 700
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %} 
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 /etc/systemd/system/firewall.service:
   file.managed:
     - user: root
@@ -30,7 +30,7 @@ include:
     - group: root
     - template: jinja
     - source: file:///home/{{ pillar['fwdriver']['user'] }}/fwdriver/miscellaneous/firewall.conf
-    
+
 /etc/init/firewall-init.conf:
   file.managed:
     - user: root
@@ -55,7 +55,7 @@ include:
     - user: {{ pillar['fwdriver']['user'] }}
     - group: {{ pillar['fwdriver']['user'] }}
 
-{% if grains['os_family'] != 'RedHat' and grains['os'] != 'Debian' %}
+{% if grains['os_family'] != 'RedHat' and grains['os'] != 'Debian' and grains['os'] != 'Ubuntu' and grains['oscodename'] != 'xenial' %}
 /etc/init.d/isc-dhcp-server:
   file.symlink:
     - target: /lib/init/upstart-job
@@ -77,7 +77,7 @@ include:
     - source: salt://fwdriver/files/sudoers
 
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 systemd-sysctl:
   cmd.run:
     - name: /bin/systemctl restart systemd-sysctl
@@ -111,4 +111,3 @@ firewall-init_semodule:
       - file: /root/firewall-init.te
       - pkg: firewall-selinux_pkgs
 {% endif %}
-
