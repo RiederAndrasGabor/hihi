@@ -15,7 +15,7 @@ libvirtconf:
   file.append:
     - text: libvirtd_opts="-d -l"
 
-{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
+{% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 libvirtd:
 {% else %}
 libvirt-bin:
@@ -68,7 +68,7 @@ vmdriver_semodule:
       - file: /root/vmdriver.te
       - pkg: selinux_pkgs
 
-{% elif grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
+{% elif grains['os'] == 'Debian' %}
 
 /usr/bin/kvm:
   file.replace:

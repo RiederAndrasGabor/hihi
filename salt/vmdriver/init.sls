@@ -53,7 +53,7 @@ vmdriver:
       {% endif %}
     - require_in:
       - file: /etc/default/libvirt-bin
-      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
+      {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
       - service: libvirtd
       {% else %}
       - file: /etc/apparmor.d/libvirt/TEMPLATE
