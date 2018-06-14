@@ -13,7 +13,11 @@ libvirtconf:
 
 /etc/default/libvirt-bin:
   file.append:
+{% if grains['os'] == 'Ubuntu' or grains['oscodename'] == 'xenial' %}
+    - text: libvirtd_opts="-l"
+{% else %}
     - text: libvirtd_opts="-d -l"
+{% endif %}
 
 {% if grains['os_family'] == 'RedHat' or grains['os'] == 'Debian' %}
 libvirtd:
