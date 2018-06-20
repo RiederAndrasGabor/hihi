@@ -72,7 +72,7 @@ vmdriver_semodule:
       - file: /root/vmdriver.te
       - pkg: selinux_pkgs
 
-{% elif grains['os'] == 'Debian' %}
+{% elif grains['os'] == 'Debian' or grains['os'] == 'Ubuntu' and grains['oscodename'] == 'xenial' %}
 
 /usr/bin/kvm:
   file.replace:
@@ -80,6 +80,9 @@ vmdriver_semodule:
     - repl: ""
     - watch:
       - pkg: vmdriver
+{% endif %}
+
+{% if grains['os'] == 'Debian' %}
 
 policycoreutils:
   pkg.installed
