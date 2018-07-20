@@ -1,37 +1,23 @@
 virtualenv_graphite:
   virtualenv.managed:
-    - name: /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite
+    - name: /opt/graphite/
+    - system_site_packages: False
+    - user: {{ pillar['graphite']['user'] }}
+
+pip_graphite:
+  pip.installed:
+    - bin_env: /opt/graphite/bin/pip
     - requirements: /home/{{ pillar['graphite']['user'] }}/requirements.txt
     - user: {{ pillar['graphite']['user'] }}
+    - install_options:
+      - --prefix=/opt/graphite
     - require:
+      - virtualenv_graphite
       - user: {{ pillar['graphite']['user'] }}
       - file: /home/{{ pillar['graphite']['user'] }}/requirements.txt
       - file: /opt/graphite
-
-global-site-packages:
-  file.absent:
-    - name: /home/{{pillar['graphite']['user'] }}/.virtualenvs/graphite/lib/python2.7/no-global-site-packages.txt
-    - require:
-      - virtualenv: virtualenv_graphite
-
-unicode-fix-diff:
-  file.managed:
-    - name: /home/{{pillar['graphite']['user'] }}/graphite-unicode-fix.diff
-    - template: jinja
-    - source: salt://graphite/files/graphite-unicode-fix.diff
-    - user: {{ pillar['graphite']['user'] }}
-    - group: {{ pillar['graphite']['user'] }}
-
-unicode-fix:
-  cmd.run:
-    - user: {{ pillar['graphite']['user'] }}
-    - cwd: /opt/graphite/webapp/graphite
-    - name: patch -N -p1 < /home/{{pillar['graphite']['user'] }}/graphite-unicode-fix.diff
-    - onlyif: patch -N --dry-run --silent -p1 < /home/{{pillar['graphite']['user'] }}/graphite-unicode-fix.diff
-    - require:
-      - virtualenv: virtualenv_graphite
-      - user: {{ pillar['graphite']['user'] }}
-      - file: unicode-fix-diff
+    - env_vars:
+        PYTHONPATH: '/opt/graphite/lib/:/opt/graphite/webapp/'
 
 salt://graphite/files/syncdb.sh:
   cmd.script:

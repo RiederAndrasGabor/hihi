@@ -1,6 +1,6 @@
 postactivate:
   file.managed:
-      - name: /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite/bin/postactivate
+      - name: /opt/graphite/bin/postactivate
       - source: salt://graphite/files/postactivate
       - template: jinja
       - user: {{ pillar['graphite']['user'] }}
