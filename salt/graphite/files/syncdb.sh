@@ -1,4 +1,4 @@
 #!/bin/bash 
-source /home/{{ pillar['graphite']['user'] }}/.virtualenvs/graphite/bin/activate;
+source /opt/graphite/bin/activate;
 cd /opt/graphite/webapp/graphite/
-PYTHONPATH=/opt/graphite/webapp django-admin.py syncdb --settings=graphite.settings --noinput
+PYTHONPATH="/opt/graphite/lib/:/opt/graphite/webapp/" django-admin.py migrate --settings=graphite.settings --noinput
