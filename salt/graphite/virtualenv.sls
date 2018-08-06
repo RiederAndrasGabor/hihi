@@ -3,6 +3,8 @@ virtualenv_graphite:
     - name: /opt/graphite/
     - system_site_packages: False
     - user: {{ pillar['graphite']['user'] }}
+    - require:
+      - opt_graphite
 
 pip_graphite:
   pip.installed:
@@ -24,5 +26,6 @@ salt://graphite/files/syncdb.sh:
     - template: jinja
     - user: {{ pillar['graphite']['user'] }}
     - require:
-      - virtualenv: virtualenv_graphite
+      - virtualenv_graphite
       - user: {{ pillar['graphite']['user'] }}
+      - local_settings

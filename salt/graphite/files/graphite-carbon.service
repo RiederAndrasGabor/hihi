@@ -7,7 +7,7 @@ User={{ pillar['graphite']['user'] }}
 Group={{ pillar['graphite']['user'] }}
 Environment=PYTHONPATH=/opt/graphite/lib GRAPHITE_ROOT=/opt/graphite
 WorkingDirectory=/opt/graphite/bin/
-ExecStart=/bin/bash -c "source /opt/graphite/bin/activate; exec twistd --nodaemon --reactor=epoll --no_save carbon-cache"
+ExecStart=/bin/bash -c "source /opt/graphite/bin/activate; source /opt/graphite/bin/postactivate; exec twistd --nodaemon --reactor=epoll --no_save carbon-cache"
 Restart=always
 
 [Install]

@@ -50,8 +50,9 @@ requirements:
     - source: salt://graphite/files/graphite-carbon.conf
 {% endif %}
 
-/opt/graphite:
+opt_graphite:
   file.directory:
+    - name: /opt/graphite
     - makedirs: True
     - user: {{ pillar['graphite']['user'] }}
     - group: {{ pillar['graphite']['user'] }}
@@ -66,6 +67,7 @@ requirements:
     - template: jinja
     - makedirs: True
     - require:
+      - opt_graphite
       - user: {{ pillar['graphite']['user'] }}
 
 /opt/graphite/conf/storage-schemas.conf:
@@ -76,14 +78,17 @@ requirements:
     - group: {{ pillar['graphite']['user'] }}
     - makedirs: True
     - require:
+      - opt_graphite
       - user: {{ pillar['graphite']['user'] }}
 
-/opt/graphite/webapp/graphite/local_settings.py:
+local_settings:
   file.managed:
+    - name: /opt/graphite/webapp/graphite/local_settings.py
     - source: salt://graphite/files/local_settings.py
     - user: {{ pillar['graphite']['user'] }}
     - group: {{ pillar['graphite']['user'] }}
     - template: jinja
     - makedirs: True
     - require:
+      - opt_graphite
       - user: {{ pillar['graphite']['user'] }}
