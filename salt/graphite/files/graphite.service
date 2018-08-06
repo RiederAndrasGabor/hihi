@@ -6,7 +6,7 @@ After=network.target
 User={{ pillar['graphite']['user'] }}
 Group={{ pillar['graphite']['user'] }}
 WorkingDirectory=/opt/graphite/webapp/graphite
-ExecStart=/bin/bash -c "source /etc/profile; source /opt/graphite/bin/activate; PYTHONPATH="/opt/graphite/lib/:/opt/graphite/webapp/" exec django-admin.py runserver [::]:8081 --settings=graphite.settings"
+ExecStart=/bin/bash -c "source /opt/graphite/bin/activate; PYTHONPATH=/opt/graphite/lib/:/opt/graphite/webapp/ exec django-admin.py runserver [::]:8080 --settings=graphite.settings"
 Restart=always
 
 [Install]
