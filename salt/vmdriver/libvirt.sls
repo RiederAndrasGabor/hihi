@@ -101,7 +101,7 @@ polkitd:
     - watch:
       - file: /etc/polkit-1/localauthority/50-local.d/org.libvirt.unix.manage.pkla
 
-{% else %}
+{% elif grains['os'] == 'Ubuntu' %}
 
 /etc/apparmor.d/libvirt/TEMPLATE:
   file.managed:
