@@ -3,6 +3,10 @@ include:
   - vmdriver.gitrepo
   - vmdriver.virtualenv
   - vmdriver.configuration
+  - agentdriver
+  - agentdriver.gitrepo
+  - agentdriver.virtualenv
+  - agentdriver.configuration
 
 
 {% if grains['os_family'] == 'RedHat' %}
