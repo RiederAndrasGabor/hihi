@@ -19,4 +19,4 @@ if [ $retv -eq 0 ]; then
     EXTRAPARAMS="--kvm-present"
 fi
 
-python $PREFIX/install.py $EXTRAPARAMS
+python $PREFIX/install.py $EXTRAPARAMS $@

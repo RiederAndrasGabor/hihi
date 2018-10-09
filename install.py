@@ -112,11 +112,19 @@ class KeyStore:
         with open(self.keyfile, 'w') as f:
             yaml.dump(self.data, f)
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--kvm-present', action='store_true',
                     help='Installs with KVM hypervisor otherwise with QEMU.')
+parser.add_argument('--dev', action='store_true',
+                    help='Installs Develpment version')
+parser.add_argument('--local', action='store_true',
+                    help='Installs Develpment version')
 args = parser.parse_args()
+
+if args.dev or args.local:
+    deployment_type = 'local'
+else:
+    deployment_type = 'production'
 
 KEYFILE = join(PREFIX, '.circlekeys')
 ks = KeyStore(KEYFILE)
@@ -126,7 +134,7 @@ installer_sls = {
     'proxy_secret': ks.get_key('proxy_secret'),
     'secret_key': ks.get_key('secret_key'),
     'timezone': get_timezone(),
-    'deployment_type': 'production',
+    'deployment_type': deployment_type,
     'admin_user': 'admin',
     'admin_pass': input_admin_password(),
     'database': {
