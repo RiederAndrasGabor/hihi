@@ -1,0 +1,19 @@
+[Unit]
+Description=DNS driver
+Wants=network.target
+After=network.target
+
+[Service]
+User={{ pillar["user"] }}
+Group={{ pillar["user"] }}
+
+KillSignal=SIGTERM
+TimeoutStopSec=600
+Restart=always
+
+WorkingDirectory=/home/{{ pillar["user"] }}/dnsdriver
+
+ExecStart=/bin/bash -c "source /home/{{ pillar["user"] }}/.virtualenvs/dnsdriver/bin/activate; source /home/{{ pillar["user"] }}/.virtualenvs/dnsdriver/bin/postactivate; exec celery -A dnscelery worker --loglevel=info -n $(/bin/hostname -s).dns"
+
+[Install]
+WantedBy=multi-user.target

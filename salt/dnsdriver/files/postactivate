@@ -1,0 +1,5 @@
+export AMQP_URI=amqp://{{ pillar['amqp']['user'] }}:{{ pillar['amqp']['password'] }}@{{ pillar['amqp']['host'] }}:{{ pillar['amqp']['port'] }}/{{ pillar['amqp']['vhost'] }}
+export DNS_DB_DIR={{ pillar['dnsdriver']['dns_db_dir'] }}
+
+# extra paramaters for dnscelery
+#export EXTRA=
