@@ -11,4 +11,5 @@ base:
     - firewall
     - manager
     - common
+    - dnsdriver
     - installer
